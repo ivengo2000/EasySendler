@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MySmtpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MailSettings">
+          <Key>
+            <PropertyRef Name="MailSettingsId" />
+          </Key>
+          <Property Name="MailSettingsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" />
+          <Property Name="SMTP" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SMTPPort" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Pop3" Type="nvarchar" MaxLength="200" />
+          <Property Name="Pop3Port" Type="nvarchar" MaxLength="200" />
+          <Property Name="EnableSSL" Type="bit" Nullable="false" />
+          <Property Name="Imap" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImapPort" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="RecipientLists">
+          <Key>
+            <PropertyRef Name="rlId" />
+          </Key>
+          <Property Name="rlId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="RecipientListsRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rlId" Type="int" Nullable="false" />
+          <Property Name="rId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recipients">
+          <Key>
+            <PropertyRef Name="RecipientId" />
+          </Key>
+          <Property Name="RecipientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="SureName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Templates">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="TemplateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Body" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_RecipientListsRelation_RecipientLists">
+          <End Role="RecipientLists" Type="Self.RecipientLists" Multiplicity="1" />
+          <End Role="RecipientListsRelation" Type="Self.RecipientListsRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecipientLists">
+              <PropertyRef Name="rlId" />
+            </Principal>
+            <Dependent Role="RecipientListsRelation">
+              <PropertyRef Name="rlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecipientListsRelation_Recipients">
+          <End Role="Recipients" Type="Self.Recipients" Multiplicity="1" />
+          <End Role="RecipientListsRelation" Type="Self.RecipientListsRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipients">
+              <PropertyRef Name="RecipientId" />
+            </Principal>
+            <Dependent Role="RecipientListsRelation">
+              <PropertyRef Name="rId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MySmtpModelStoreContainer">
+          <EntitySet Name="MailSettings" EntityType="Self.MailSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecipientLists" EntityType="Self.RecipientLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecipientListsRelation" EntityType="Self.RecipientListsRelation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipients" EntityType="Self.Recipients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Templates" EntityType="Self.Templates" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RecipientListsRelation_RecipientLists" Association="Self.FK_RecipientListsRelation_RecipientLists">
+            <End Role="RecipientLists" EntitySet="RecipientLists" />
+            <End Role="RecipientListsRelation" EntitySet="RecipientListsRelation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecipientListsRelation_Recipients" Association="Self.FK_RecipientListsRelation_Recipients">
+            <End Role="Recipients" EntitySet="Recipients" />
+            <End Role="RecipientListsRelation" EntitySet="RecipientListsRelation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MySmtpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MailSetting">
+          <Key>
+            <PropertyRef Name="MailSettingsId" />
+          </Key>
+          <Property Name="MailSettingsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SMTP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SMTPPort" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pop3" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Pop3Port" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EnableSSL" Type="Boolean" Nullable="false" />
+          <Property Name="Imap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImapPort" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="MySmtpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MailSettings" EntityType="Self.MailSetting" />
+          <EntitySet Name="RecipientLists" EntityType="MySmtpModel.RecipientList" />
+          <EntitySet Name="RecipientListsRelations" EntityType="MySmtpModel.RecipientListsRelation" />
+          <EntitySet Name="Recipients" EntityType="MySmtpModel.Recipient" />
+          <EntitySet Name="Templates" EntityType="MySmtpModel.Template" />
+          <AssociationSet Name="FK_RecipientListsRelation_RecipientLists" Association="MySmtpModel.FK_RecipientListsRelation_RecipientLists">
+            <End Role="RecipientList" EntitySet="RecipientLists" />
+            <End Role="RecipientListsRelation" EntitySet="RecipientListsRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecipientListsRelation_Recipients" Association="MySmtpModel.FK_RecipientListsRelation_Recipients">
+            <End Role="Recipient" EntitySet="Recipients" />
+            <End Role="RecipientListsRelation" EntitySet="RecipientListsRelations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="RecipientList">
+          <Key>
+            <PropertyRef Name="rlId" />
+          </Key>
+          <Property Name="rlId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RecipientListsRelations" Relationship="MySmtpModel.FK_RecipientListsRelation_RecipientLists" FromRole="RecipientList" ToRole="RecipientListsRelation" />
+        </EntityType>
+        <EntityType Name="RecipientListsRelation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rlId" Type="Int32" Nullable="false" />
+          <Property Name="rId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RecipientList" Relationship="MySmtpModel.FK_RecipientListsRelation_RecipientLists" FromRole="RecipientListsRelation" ToRole="RecipientList" />
+          <NavigationProperty Name="Recipient" Relationship="MySmtpModel.FK_RecipientListsRelation_Recipients" FromRole="RecipientListsRelation" ToRole="Recipient" />
+        </EntityType>
+        <EntityType Name="Recipient">
+          <Key>
+            <PropertyRef Name="RecipientId" />
+          </Key>
+          <Property Name="RecipientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SureName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RecipientListsRelations" Relationship="MySmtpModel.FK_RecipientListsRelation_Recipients" FromRole="Recipient" ToRole="RecipientListsRelation" />
+        </EntityType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="TemplateId" />
+          </Key>
+          <Property Name="TemplateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_RecipientListsRelation_RecipientLists">
+          <End Type="MySmtpModel.RecipientList" Role="RecipientList" Multiplicity="1" />
+          <End Type="MySmtpModel.RecipientListsRelation" Role="RecipientListsRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecipientList">
+              <PropertyRef Name="rlId" />
+            </Principal>
+            <Dependent Role="RecipientListsRelation">
+              <PropertyRef Name="rlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecipientListsRelation_Recipients">
+          <End Type="MySmtpModel.Recipient" Role="Recipient" Multiplicity="1" />
+          <End Type="MySmtpModel.RecipientListsRelation" Role="RecipientListsRelation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipient">
+              <PropertyRef Name="RecipientId" />
+            </Principal>
+            <Dependent Role="RecipientListsRelation">
+              <PropertyRef Name="rId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MySmtpModelStoreContainer" CdmEntityContainer="MySmtpEntities">
+          <EntitySetMapping Name="MailSettings">
+            <EntityTypeMapping TypeName="MySmtpModel.MailSetting">
+              <MappingFragment StoreEntitySet="MailSettings">
+                <ScalarProperty Name="MailSettingsId" ColumnName="MailSettingsId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SMTP" ColumnName="SMTP" />
+                <ScalarProperty Name="SMTPPort" ColumnName="SMTPPort" />
+                <ScalarProperty Name="Pop3" ColumnName="Pop3" />
+                <ScalarProperty Name="Pop3Port" ColumnName="Pop3Port" />
+                <ScalarProperty Name="EnableSSL" ColumnName="EnableSSL" />
+                <ScalarProperty Name="Imap" ColumnName="Imap" />
+                <ScalarProperty Name="ImapPort" ColumnName="ImapPort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecipientLists">
+            <EntityTypeMapping TypeName="MySmtpModel.RecipientList">
+              <MappingFragment StoreEntitySet="RecipientLists">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="rlId" ColumnName="rlId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecipientListsRelations">
+            <EntityTypeMapping TypeName="MySmtpModel.RecipientListsRelation">
+              <MappingFragment StoreEntitySet="RecipientListsRelation">
+                <ScalarProperty Name="rId" ColumnName="rId" />
+                <ScalarProperty Name="rlId" ColumnName="rlId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipients">
+            <EntityTypeMapping TypeName="MySmtpModel.Recipient">
+              <MappingFragment StoreEntitySet="Recipients">
+                <ScalarProperty Name="SureName" ColumnName="SureName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Templates">
+            <EntityTypeMapping TypeName="MySmtpModel.Template">
+              <MappingFragment StoreEntitySet="Templates">
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

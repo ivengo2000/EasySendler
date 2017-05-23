@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BuisenessLogicLayer.MailSetting>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SMTP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SMTPPort)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pop3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pop3Port)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnableSSL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImapPort)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SMTP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SMTPPort)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pop3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pop3Port)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnableSSL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImapPort)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MailSettingsId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MailSettingsId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MailSettingsId })
+        </td>
+    </tr>
+}
+
+</table>

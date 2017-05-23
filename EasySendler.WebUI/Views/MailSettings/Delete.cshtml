@@ -1,0 +1,97 @@
+﻿@model BuisenessLogicLayer.MailSetting
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MailSetting</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SMTP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SMTP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SMTPPort)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SMTPPort)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pop3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pop3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pop3Port)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pop3Port)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnableSSL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnableSSL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imap)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imap)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImapPort)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImapPort)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
