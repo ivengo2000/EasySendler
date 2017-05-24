@@ -133,7 +133,7 @@
           </Key>
           <Property Name="rlId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="RecipientListsRelations" Relationship="MySmtpModel.FK_RecipientListsRelation_RecipientLists" FromRole="RecipientList" ToRole="RecipientListsRelation" />
         </EntityType>
         <EntityType Name="RecipientListsRelation">

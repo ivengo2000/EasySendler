@@ -1,23 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BuisenessLogicLayer;
+using EasySendler.Models.BusinessLogic;
 
 namespace EasySendler.Controllers
 {
     public class RecipientListsController : Controller
     {
-        private MySmtpEntities db = new MySmtpEntities();
+        private readonly MySmtpEntities _db = new MySmtpEntities();
+
+        public RecipientListsController()
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<RecipientList, RecipientListViewModel>());
+        }
 
         // GET: RecipientLists
         public ActionResult Index()
         {
-            return View(db.RecipientLists.ToList());
+            return View(_db.RecipientLists.ProjectTo<RecipientListViewModel>().ToList());
         }
 
         // GET: RecipientLists/Details/5
@@ -27,7 +31,8 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RecipientList recipientList = db.RecipientLists.Find(id);
+
+            var recipientList = Mapper.Map<RecipientListViewModel>(_db.RecipientLists.Find(id));
             if (recipientList == null)
             {
                 return HttpNotFound();
@@ -50,12 +55,12 @@ namespace EasySendler.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.RecipientLists.Add(recipientList);
-                db.SaveChanges();
+                _db.RecipientLists.Add(recipientList);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(recipientList);
+            return View(Mapper.Map<RecipientListViewModel>(recipientList));
         }
 
         // GET: RecipientLists/Edit/5
@@ -65,7 +70,7 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RecipientList recipientList = db.RecipientLists.Find(id);
+            var recipientList = Mapper.Map<RecipientListViewModel>(_db.RecipientLists.Find(id));
             if (recipientList == null)
             {
                 return HttpNotFound();
@@ -82,11 +87,11 @@ namespace EasySendler.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recipientList).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(recipientList).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(recipientList);
+            return View(Mapper.Map<RecipientListViewModel>(recipientList));
         }
 
         // GET: RecipientLists/Delete/5
@@ -96,11 +101,12 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RecipientList recipientList = db.RecipientLists.Find(id);
+            var recipientList = Mapper.Map<RecipientListViewModel>(_db.RecipientLists.Find(id));
             if (recipientList == null)
             {
                 return HttpNotFound();
             }
+
             return View(recipientList);
         }
 
@@ -109,17 +115,27 @@ namespace EasySendler.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RecipientList recipientList = db.RecipientLists.Find(id);
-            db.RecipientLists.Remove(recipientList);
-            db.SaveChanges();
+            RecipientList recipientList = _db.RecipientLists.Find(id);
+            if (recipientList != null)
+            {
+                _db.RecipientLists.Remove(recipientList);
+                _db.SaveChanges();
+            }
+            
             return RedirectToAction("Index");
+        }
+
+        // GET: ConfigureList
+        public ActionResult ConfigureList()
+        {
+            return View(_db.RecipientLists.ProjectTo<RecipientListViewModel>().ToList());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
