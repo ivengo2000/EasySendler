@@ -21,20 +21,74 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.rlId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.rlId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.rlId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.rlId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.rlId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.rlId})
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+<div class="no-gutters" >
+    <div class="col">
+        <select id="ddlRecipientLists" class="ddl-select2-source"
+                data-tags="true" data-placeholder="Select an option" data-allow-clear="true"
+                data-ajax--url="@Url.Action("GetRecipientListForDropDown", "RecipientLists")" data-ajax--cache="true">
+        </select>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/additionaljq")
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var pageSize = 20;
+        var $ddlRecipientLists = $('#ddlRecipientLists');
+
+        $ddlRecipientLists.select2({
+            minimumInputLength: 0,
+            ajax: {
+                async: true,
+                quietMillis: 500,
+                dataType: 'json',
+                delay: 500,
+                data: function (params) {
+                    return {
+                        pageSize: pageSize,
+                        pageNum: params.page || 1,
+                        searchTerm: params.term
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.Results,
+                        pagination: {
+                            more: (params.page * pageSize) < data.Total
+                        }
+                    };
+                }
+            }
+        });
+
+        $ddlRecipientLists.on('select2:select', function (e) {
+            alert(e.currentTarget.value);
+        });
+    });
+    </script>
+}

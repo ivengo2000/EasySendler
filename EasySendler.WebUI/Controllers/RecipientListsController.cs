@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -129,6 +130,49 @@ namespace EasySendler.Controllers
         public ActionResult ConfigureList()
         {
             return View(_db.RecipientLists.ProjectTo<RecipientListViewModel>().ToList());
+        }
+
+        [HttpGet]
+        public ActionResult GetRecipientListForDropDown(string searchTerm, int pageSize, int pageNum)
+        {
+            ////Get the paged results and the total count of the results for this query. 
+            //AttendeeRepository ar = new AttendeeRepository();
+            //List<Attendee> attendees = ar.GetAttendees(searchTerm, pageSize, pageNum);
+            //int attendeeCount = ar.GetAttendeesCount(searchTerm, pageSize, pageNum);
+
+            ////Translate the attendees into a format the select2 dropdown expects
+           // Select2PagedResult pagedAttendees = AttendeesToSelect2Format(attendees, attendeeCount);
+            Select2PagedResult pagedAttendees = new Select2PagedResult();
+            var resultList = new List<Select2Result>
+            {
+                new Select2Result() {id = "1", text = "test1"},
+                new Select2Result() {id = "2", text = "test2"},
+                new Select2Result() {id = "3", text = "test3"}
+            };
+
+            pagedAttendees.Results = resultList;
+            pagedAttendees.Total = 3;
+
+            return new JsonResult
+            {
+                Data = pagedAttendees,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public class Select2PagedResult
+        {
+            public int Total { get; set; }
+            public List<Select2Result> Results { get; set; }
+        }
+
+        //[Serializable]
+        public class Select2Result
+        {
+            //[DisplayName("id")]
+            public string id { get; set; }
+            //[DisplayName("text")]
+            public string text { get; set; }
         }
 
         protected override void Dispose(bool disposing)

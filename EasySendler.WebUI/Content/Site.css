@@ -22,3 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+.select2-search__field {
+    max-width: none;
+}
+.ddl-select2-source {
+    width: 100%;
+    max-width: 100%;
+}
