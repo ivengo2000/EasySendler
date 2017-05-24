@@ -6,7 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BuisenessLogicLayer;
+using EasySendler.Models.BusinessLogic;
 
 namespace EasySendler.Controllers
 {
@@ -14,10 +17,14 @@ namespace EasySendler.Controllers
     {
         private MySmtpEntities db = new MySmtpEntities();
 
+        public MailSettingsController()
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<MailSetting, MailSettingViewModel>());
+        }
         // GET: MailSettings
         public ActionResult Index()
         {
-            return View(db.MailSettings.ToList());
+            return View(db.MailSettings.ProjectTo<MailSettingViewModel>().ToList());
         }
 
         // GET: MailSettings/Details/5
@@ -27,7 +34,7 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MailSetting mailSetting = db.MailSettings.Find(id);
+            var mailSetting = Mapper.Map<MailSettingViewModel>(db.MailSettings.Find(id));
             if (mailSetting == null)
             {
                 return HttpNotFound();
@@ -55,7 +62,7 @@ namespace EasySendler.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(mailSetting);
+            return View(Mapper.Map<MailSettingViewModel>(mailSetting));
         }
 
         // GET: MailSettings/Edit/5
@@ -65,7 +72,7 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MailSetting mailSetting = db.MailSettings.Find(id);
+            var mailSetting = Mapper.Map<MailSettingViewModel>(db.MailSettings.Find(id));
             if (mailSetting == null)
             {
                 return HttpNotFound();
@@ -86,7 +93,7 @@ namespace EasySendler.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(mailSetting);
+            return View(Mapper.Map<MailSettingViewModel>(mailSetting));
         }
 
         // GET: MailSettings/Delete/5
@@ -96,11 +103,12 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MailSetting mailSetting = db.MailSettings.Find(id);
+            var mailSetting = Mapper.Map<MailSettingViewModel>(db.MailSettings.Find(id));
             if (mailSetting == null)
             {
                 return HttpNotFound();
             }
+
             return View(mailSetting);
         }
 
@@ -110,10 +118,15 @@ namespace EasySendler.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             MailSetting mailSetting = db.MailSettings.Find(id);
-            db.MailSettings.Remove(mailSetting);
-            db.SaveChanges();
+            if (mailSetting != null)
+            {
+                db.MailSettings.Remove(mailSetting);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
+
+      
 
         protected override void Dispose(bool disposing)
         {
