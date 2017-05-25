@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -21,6 +17,7 @@ namespace EasySendler.Controllers
         {
             Mapper.Initialize(cfg => cfg.CreateMap<MailSetting, MailSettingViewModel>());
         }
+
         // GET: MailSettings
         public ActionResult Index()
         {
@@ -125,8 +122,6 @@ namespace EasySendler.Controllers
             }
             return RedirectToAction("Index");
         }
-
-      
 
         protected override void Dispose(bool disposing)
         {

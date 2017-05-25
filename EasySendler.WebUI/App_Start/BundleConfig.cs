@@ -15,7 +15,8 @@ namespace EasySendler
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/additionaljq").Include(
-                        "~/Scripts/select2.full.min.js"));
+                        "~/Scripts/select2.full.min.js",
+                        "~/Scripts/site/ConfigureRecipientList.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

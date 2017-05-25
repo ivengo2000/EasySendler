@@ -29,3 +29,13 @@ textarea {
     width: 100%;
     max-width: 100%;
 }
+.select2-results .option-item-name, .select2-selection .option-item-name {
+    font-weight: bold;   
+}
+.select2-results .option-item-descr-title, .select2-selection .option-item-descr-title {
+    font-weight: normal;
+    font-size: 80%;
+    font-style: italic;
+    margin: 0 10px;
+    color: grey;
+}
