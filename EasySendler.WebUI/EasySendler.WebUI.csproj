@@ -205,7 +205,7 @@
     <Compile Include="Models\BusinessLogic\MailSettingsViewModel.cs" />
     <Compile Include="Models\BusinessLogic\RecipientListViewModel.cs" />
     <Compile Include="Models\BusinessLogic\RecipientsViewModel.cs" />
-    <Compile Include="Models\BusinessLogic\TemplatesViewModel.cs" />
+    <Compile Include="Models\BusinessLogic\TemplateViewModel.cs" />
     <Compile Include="Models\Controls\DropDownPagedResult.cs" />
     <Compile Include="Models\Controls\DropDownResult.cs" />
     <Compile Include="Models\IdentityModels.cs" />
