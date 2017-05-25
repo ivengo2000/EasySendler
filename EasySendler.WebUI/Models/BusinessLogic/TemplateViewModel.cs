@@ -6,7 +6,7 @@ using System.Web;
 
 namespace EasySendler.Models.BusinessLogic
 {
-    public class TemplatesViewModel
+    public class TemplateViewModel
     {
         public int TemplateId { get; set; }
 
@@ -17,7 +17,7 @@ namespace EasySendler.Models.BusinessLogic
         [Required]
         [StringLength(250)]
         public string Description { get; set; }
-       
+
         public string Body { get; set; }
     }
 }

@@ -6,7 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BuisenessLogicLayer;
+using EasySendler.Models.BusinessLogic;
 
 namespace EasySendler.Controllers
 {
@@ -14,10 +17,15 @@ namespace EasySendler.Controllers
     {
         private MySmtpEntities db = new MySmtpEntities();
 
+
+        public TemplatesController()
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<Template, TemplateViewModel>());
+        }
         // GET: Templates
         public ActionResult Index()
         {
-            return View(db.Templates.ToList());
+            return View(db.Templates.ProjectTo<TemplateViewModel>().ToList());
         }
 
         // GET: Templates/Details/5
@@ -27,7 +35,7 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Template template = db.Templates.Find(id);
+            var template = Mapper.Map<TemplateViewModel>(db.Templates.Find(id));
             if (template == null)
             {
                 return HttpNotFound();
@@ -55,7 +63,7 @@ namespace EasySendler.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(template);
+            return View(Mapper.Map<TemplateViewModel>(template));
         }
 
         // GET: Templates/Edit/5
@@ -65,7 +73,7 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Template template = db.Templates.Find(id);
+            var template = Mapper.Map<TemplateViewModel>(db.Templates.Find(id));
             if (template == null)
             {
                 return HttpNotFound();
@@ -86,7 +94,7 @@ namespace EasySendler.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(template);
+            return View(Mapper.Map<TemplateViewModel>(template));
         }
 
         // GET: Templates/Delete/5
@@ -96,11 +104,12 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Template template = db.Templates.Find(id);
+            var template = Mapper.Map<TemplateViewModel>(db.Templates.Find(id));
             if (template == null)
             {
                 return HttpNotFound();
             }
+
             return View(template);
         }
 
@@ -110,10 +119,15 @@ namespace EasySendler.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Template template = db.Templates.Find(id);
-            db.Templates.Remove(template);
-            db.SaveChanges();
+            if (template != null)
+            {
+                db.Templates.Remove(template);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
+    
 
         protected override void Dispose(bool disposing)
         {
