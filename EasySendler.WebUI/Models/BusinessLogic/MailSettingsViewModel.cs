@@ -26,11 +26,9 @@ namespace EasySendler.Models.BusinessLogic
         [StringLength(200)]
         public string SMTPPort { get; set; }
 
-        [Required]
         [StringLength(200)]
         public string Pop3 { get; set; }
 
-        [Required]
         [StringLength(200)]
         public string Pop3Port { get; set; }
 
@@ -38,11 +36,9 @@ namespace EasySendler.Models.BusinessLogic
         [StringLength(200)]
         public string EnableSSL { get; set; }
 
-        [Required]
         [StringLength(200)]
         public string Imap { get; set; }
 
-        [Required]
         [StringLength(200)]
         public string ImapPort { get; set; }
     }

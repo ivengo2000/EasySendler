@@ -206,6 +206,8 @@
     <Compile Include="Models\BusinessLogic\RecipientListViewModel.cs" />
     <Compile Include="Models\BusinessLogic\RecipientsViewModel.cs" />
     <Compile Include="Models\BusinessLogic\TemplatesViewModel.cs" />
+    <Compile Include="Models\Controls\DropDownPagedResult.cs" />
+    <Compile Include="Models\Controls\DropDownResult.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -247,6 +249,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2.full.min.js" />
+    <Content Include="Scripts\site\ConfigureRecipientList.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

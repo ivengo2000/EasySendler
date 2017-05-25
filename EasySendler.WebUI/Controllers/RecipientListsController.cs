@@ -7,6 +7,8 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BuisenessLogicLayer;
 using EasySendler.Models.BusinessLogic;
+using EasySendler.Models.Controls;
+using Newtonsoft.Json;
 
 namespace EasySendler.Controllers
 {
@@ -16,7 +18,13 @@ namespace EasySendler.Controllers
 
         public RecipientListsController()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<RecipientList, RecipientListViewModel>());
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<RecipientList, RecipientListViewModel>();
+                cfg.CreateMap<RecipientList, DropDownResult>()
+                    .ForMember(dest => dest.Id, y => y.MapFrom(source => source.rlId))
+                    .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Name + "|" + source.Description));
+            });
         }
 
         // GET: RecipientLists
@@ -133,46 +141,33 @@ namespace EasySendler.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetRecipientListForDropDown(string searchTerm, int pageSize, int pageNum)
+        public JsonResult GetRecipientListForDropDown(string searchTerm, int pageSize, int pageNum)
         {
-            ////Get the paged results and the total count of the results for this query. 
-            //AttendeeRepository ar = new AttendeeRepository();
-            //List<Attendee> attendees = ar.GetAttendees(searchTerm, pageSize, pageNum);
-            //int attendeeCount = ar.GetAttendeesCount(searchTerm, pageSize, pageNum);
-
-            ////Translate the attendees into a format the select2 dropdown expects
-           // Select2PagedResult pagedAttendees = AttendeesToSelect2Format(attendees, attendeeCount);
-            Select2PagedResult pagedAttendees = new Select2PagedResult();
-            var resultList = new List<Select2Result>
+            List<DropDownResult> results;
+            if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                new Select2Result() {id = "1", text = "test1"},
-                new Select2Result() {id = "2", text = "test2"},
-                new Select2Result() {id = "3", text = "test3"}
-            };
+                results = _db.RecipientLists.OrderBy(x => x.rlId)
+                    .Skip((pageNum - 1)*pageSize).Take(pageSize)
+                    .ProjectTo<DropDownResult>().ToList();
+            }
+            else
+            {
+                results = _db.RecipientLists.Where(x => x.Name.Contains(searchTerm))
+                    .OrderBy(x => x.rlId).Skip((pageNum - 1)*pageSize).Take(pageSize)
+                    .ProjectTo<DropDownResult>().ToList();
+            }
 
-            pagedAttendees.Results = resultList;
-            pagedAttendees.Total = 3;
+            var result = new DropDownPagedResult
+            {
+                Results = results,
+                Total = _db.RecipientLists.Count()
+            };
 
             return new JsonResult
             {
-                Data = pagedAttendees,
+                Data = JsonConvert.SerializeObject(result),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
-        }
-
-        public class Select2PagedResult
-        {
-            public int Total { get; set; }
-            public List<Select2Result> Results { get; set; }
-        }
-
-        //[Serializable]
-        public class Select2Result
-        {
-            //[DisplayName("id")]
-            public string id { get; set; }
-            //[DisplayName("text")]
-            public string text { get; set; }
         }
 
         protected override void Dispose(bool disposing)
