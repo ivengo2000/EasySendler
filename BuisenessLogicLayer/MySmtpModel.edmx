@@ -78,6 +78,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_getRecipientsByListId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rlId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="MySmtpModelStoreContainer">
           <EntitySet Name="MailSettings" EntityType="Self.MailSettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecipientLists" EntityType="Self.RecipientLists" Schema="dbo" store:Type="Tables" />
@@ -126,6 +129,9 @@
             <End Role="Recipient" EntitySet="Recipients" />
             <End Role="RecipientListsRelation" EntitySet="RecipientListsRelations" />
           </AssociationSet>
+          <FunctionImport Name="sp_getRecipientsByListId" ReturnType="Collection(MySmtpModel.sp_getRecipientsByListId_Result)">
+            <Parameter Name="rlId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="RecipientList">
           <Key>
@@ -133,7 +139,7 @@
           </Key>
           <Property Name="rlId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RecipientListsRelations" Relationship="MySmtpModel.FK_RecipientListsRelation_RecipientLists" FromRole="RecipientList" ToRole="RecipientListsRelation" />
         </EntityType>
         <EntityType Name="RecipientListsRelation">
@@ -189,6 +195,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_getRecipientsByListId_Result">
+          <Property Type="Int32" Name="RecipientId" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -249,6 +259,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_getRecipientsByListId" FunctionName="MySmtpModel.Store.sp_getRecipientsByListId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MySmtpModel.sp_getRecipientsByListId_Result">
+                <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

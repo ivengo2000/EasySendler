@@ -12,6 +12,8 @@ namespace BuisenessLogicLayer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class MySmtpEntities : DbContext
     {
@@ -30,5 +32,14 @@ namespace BuisenessLogicLayer
         public virtual DbSet<RecipientListsRelation> RecipientListsRelations { get; set; }
         public virtual DbSet<Recipient> Recipients { get; set; }
         public virtual DbSet<Template> Templates { get; set; }
+    
+        public virtual ObjectResult<sp_getRecipientsByListId_Result> sp_getRecipientsByListId(Nullable<int> rlId)
+        {
+            var rlIdParameter = rlId.HasValue ?
+                new ObjectParameter("rlId", rlId) :
+                new ObjectParameter("rlId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getRecipientsByListId_Result>("sp_getRecipientsByListId", rlIdParameter);
+        }
     }
 }
