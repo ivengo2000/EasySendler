@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BuisenessLogicLayer;
+using EasySendler.Extensions;
 using EasySendler.Models.BusinessLogic;
 using EasySendler.Models.Controls;
 using Newtonsoft.Json;
@@ -21,9 +22,13 @@ namespace EasySendler.Controllers
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<RecipientList, RecipientListViewModel>();
-                cfg.CreateMap<RecipientList, DropDownResult>()
+                cfg.CreateMap<RecipientList, DropDownViewModel>()
                     .ForMember(dest => dest.Id, y => y.MapFrom(source => source.rlId))
                     .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Name + "|" + source.Description));
+                cfg.CreateMap<sp_getRecipientsByListIdResult, DualListViewModel>()
+                    .ForMember(dest => dest.Id, y => y.MapFrom(source => source.RecipientId))
+                    .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Email))
+                    .ForMember(dest => dest.IsSelected, y => y.MapFrom(source => source.Selected));
             });
         }
 
@@ -143,25 +148,44 @@ namespace EasySendler.Controllers
         [HttpGet]
         public JsonResult GetRecipientListForDropDown(string searchTerm, int pageSize, int pageNum)
         {
-            List<DropDownResult> results;
+            List<DropDownViewModel> results;
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
                 results = _db.RecipientLists.OrderBy(x => x.rlId)
                     .Skip((pageNum - 1)*pageSize).Take(pageSize)
-                    .ProjectTo<DropDownResult>().ToList();
+                    .ProjectTo<DropDownViewModel>().ToList();
             }
             else
             {
                 results = _db.RecipientLists.Where(x => x.Name.Contains(searchTerm))
                     .OrderBy(x => x.rlId).Skip((pageNum - 1)*pageSize).Take(pageSize)
-                    .ProjectTo<DropDownResult>().ToList();
+                    .ProjectTo<DropDownViewModel>().ToList();
             }
 
-            var result = new DropDownPagedResult
+            var result = new DropDownPagedViewModel
             {
                 Results = results,
                 Total = _db.RecipientLists.Count()
             };
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [HttpGet]
+        [JsonExceptionFilter]
+        public JsonResult GetRecipientsToConfigure(string id)
+        {
+            int rlId;
+            if (!int.TryParse(id, out rlId))
+            {
+                throw new JsonException("GetRecipientsToConfigure: id must be a number.");
+            }
+
+            var result = _db.sp_getRecipientsByListId(rlId).AsQueryable().ProjectTo<DualListViewModel>().ToList();
 
             return new JsonResult
             {

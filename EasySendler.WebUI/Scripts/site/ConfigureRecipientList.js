@@ -1,8 +1,11 @@
-﻿function ConfigureRecipientList () {
+﻿function ConfigureRecipientList() {
     "use strict";
 
     var pageSize = 10;
     var $ddlRecipientLists = $("#ddlRecipientLists");
+    var $dlbRecipients = $("#dlbRecipients");
+    var $dlbRecipientsJq;
+    var recipientsToConfigureUrl = $ddlRecipientLists.get(0).dataset.recipientsToConfigureUrl;
 
     $ddlRecipientLists.select2({
         minimumInputLength: 0,
@@ -33,8 +36,41 @@
         templateSelection: getTemplateForDdlOptions
     });
 
+    $dlbRecipientsJq = $dlbRecipients.bootstrapDualListbox({
+        nonSelectedListLabel: 'Non-selected',
+        selectedListLabel: 'Selected',
+        preserveSelectionOnMove: 'moved',
+        moveOnSelect: false
+    });
+
     $ddlRecipientLists.on("select2:select", function (e) {
-       // alert(e.currentTarget.value);
+        $.ajax({
+            type: "GET",
+            url: recipientsToConfigureUrl,
+            data: { id: e.currentTarget.value },
+            dataType: "json",
+            traditional: true,
+            success: function (rawData) {
+                var data = JSON.parse(rawData);
+                $dlbRecipients.html("");
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].selected === 1) {
+                        $dlbRecipients.append("<option value=" + data[i].id + " selected = 'selected'>" + data[i].text + "</option>");
+                    } else {
+                        $dlbRecipients.append("<option value=" + data[i].id + ">" + data[i].text + "</option>");
+                    }
+                }
+                $dlbRecipientsJq.bootstrapDualListbox("refresh");
+            },
+            error: function(xhr) {
+                try {
+                    var json = $.parseJSON(xhr.responseText);
+                    alert(json.errorMessage);
+                } catch(e) { 
+                    alert('something bad happened');
+                }
+            }
+        });
     });
 
     function getTemplateForDdlOptions (data) {

@@ -41,12 +41,18 @@
 </table>
 
 
-<div class="no-gutters" >
+<div class="no-gutters">
     <div class="col">
         <select id="ddlRecipientLists" class="ddl-select2-source"
                 data-tags="false" data-placeholder="Select an option" data-allow-clear="true"
-                data-ajax--url="@Url.Action("GetRecipientListForDropDown", "RecipientLists")" data-ajax--cache="true">
+                data-ajax--url="@Url.Action("GetRecipientListForDropDown", "RecipientLists")" data-ajax--cache="true"
+                data-recipients-to-configure-url="@Url.Action("GetRecipientsToConfigure", "RecipientLists")">
         </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <select multiple="multiple" size="10" id="dlbRecipients"></select>
     </div>
 </div>
 

@@ -16,6 +16,7 @@ namespace EasySendler
 
             bundles.Add(new ScriptBundle("~/bundles/additionaljq").Include(
                         "~/Scripts/select2.full.min.js",
+                        "~/Scripts/jquery.bootstrap-duallistbox.min.js",
                         "~/Scripts/site/ConfigureRecipientList.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -30,6 +31,7 @@ namespace EasySendler
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/select2.min.css",
+                      "~/Content/bootstrap-duallistbox.min.css",
                       "~/Content/site.css"));
         }
     }

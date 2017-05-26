@@ -129,8 +129,8 @@
             <End Role="Recipient" EntitySet="Recipients" />
             <End Role="RecipientListsRelation" EntitySet="RecipientListsRelations" />
           </AssociationSet>
-          <FunctionImport Name="sp_getRecipientsByListId" ReturnType="Collection(MySmtpModel.sp_getRecipientsByListId_Result)">
-            <Parameter Name="rlId" Mode="In" Type="Int32" />
+          <FunctionImport Name="sp_getRecipientsByListId" ReturnType="Collection(MySmtpModel.sp_getRecipientsByListIdResult)">
+          <Parameter Name="rlId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="RecipientList">
@@ -195,9 +195,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_getRecipientsByListId_Result">
+        <ComplexType Name="sp_getRecipientsByListIdResult">
           <Property Type="Int32" Name="RecipientId" Nullable="false" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Selected" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -260,10 +261,11 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_getRecipientsByListId" FunctionName="MySmtpModel.Store.sp_getRecipientsByListId">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MySmtpModel.sp_getRecipientsByListId_Result">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="MySmtpModel.sp_getRecipientsByListIdResult">
                 <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Selected" ColumnName="Selected" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

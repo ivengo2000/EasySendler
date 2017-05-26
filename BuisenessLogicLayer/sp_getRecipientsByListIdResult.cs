@@ -11,9 +11,10 @@ namespace BuisenessLogicLayer
 {
     using System;
     
-    public partial class sp_getRecipientsByListId_Result
+    public partial class sp_getRecipientsByListIdResult
     {
         public int RecipientId { get; set; }
         public string Email { get; set; }
+        public int Selected { get; set; }
     }
 }

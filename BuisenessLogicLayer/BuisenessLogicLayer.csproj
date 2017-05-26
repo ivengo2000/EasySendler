@@ -81,7 +81,7 @@
       <DependentUpon>MySmtpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ServerHelper.cs" />
-    <Compile Include="sp_getRecipientsByListId_Result.cs">
+    <Compile Include="sp_getRecipientsByListIdResult.cs">
       <DependentUpon>MySmtpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Template.cs">

@@ -198,6 +198,7 @@
     <Compile Include="Controllers\RecipientListsController.cs" />
     <Compile Include="Controllers\RecipientsController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
+    <Compile Include="Extensions\JsonExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,14 +207,16 @@
     <Compile Include="Models\BusinessLogic\RecipientListViewModel.cs" />
     <Compile Include="Models\BusinessLogic\RecipientsViewModel.cs" />
     <Compile Include="Models\BusinessLogic\TemplateViewModel.cs" />
-    <Compile Include="Models\Controls\DropDownPagedResult.cs" />
-    <Compile Include="Models\Controls\DropDownResult.cs" />
+    <Compile Include="Models\Controls\DropDownPagedViewModel.cs" />
+    <Compile Include="Models\Controls\DropDownViewModel.cs" />
+    <Compile Include="Models\Controls\DualListViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-duallistbox.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -239,6 +242,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.bootstrap-duallistbox.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
