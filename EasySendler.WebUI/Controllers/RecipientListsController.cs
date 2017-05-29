@@ -9,6 +9,7 @@ using BuisenessLogicLayer;
 using EasySendler.Extensions;
 using EasySendler.Models.BusinessLogic;
 using EasySendler.Models.Controls;
+using EntityFrameworkExtras.EF6;
 using Newtonsoft.Json;
 
 namespace EasySendler.Controllers
@@ -142,7 +143,7 @@ namespace EasySendler.Controllers
         // GET: ConfigureList
         public ActionResult ConfigureList()
         {
-            return View(_db.RecipientLists.ProjectTo<RecipientListViewModel>().ToList());
+            return View();
         }
 
         [HttpGet]
@@ -190,6 +191,39 @@ namespace EasySendler.Controllers
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [HttpPost]
+        [JsonExceptionFilter]
+        public JsonResult SaveConfiguredList(int[] ids, int listId)
+        {
+            if (listId == 0)
+            {
+                throw new JsonException("SaveConfiguredList: please select a recipient list from dropdown.");
+            }
+
+            if (ids == null)
+            {
+                var itemsToDelete = _db.RecipientListsRelations.Where(x => x.rlId.Equals(listId));
+                _db.RecipientListsRelations.RemoveRange(itemsToDelete);
+                _db.SaveChanges();
+            }
+            else
+            {
+                var procedure = new SpSaveConfiguredRecipientList()
+                {
+                    ListId = listId,
+                    Ids = ids.Select(id => new UdtIntArray() { Value = id }).ToList()
+                };
+
+                _db.Database.ExecuteStoredProcedure(procedure);
+            }
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject("OK"),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

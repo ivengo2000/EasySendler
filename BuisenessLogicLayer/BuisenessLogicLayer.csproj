@@ -38,6 +38,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFrameworkExtras.EF6, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFrameworkExtras.EF6.1.0.0\lib\net45\EntityFrameworkExtras.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -81,12 +85,14 @@
       <DependentUpon>MySmtpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ServerHelper.cs" />
+    <Compile Include="SpSaveConfiguredRecipientList.cs" />
     <Compile Include="sp_getRecipientsByListIdResult.cs">
       <DependentUpon>MySmtpModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Template.cs">
       <DependentUpon>MySmtpModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UdtIntArray.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

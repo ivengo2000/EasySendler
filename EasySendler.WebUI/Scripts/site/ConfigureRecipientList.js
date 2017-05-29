@@ -6,6 +6,8 @@
     var $dlbRecipients = $("#dlbRecipients");
     var $dlbRecipientsJq;
     var recipientsToConfigureUrl = $ddlRecipientLists.get(0).dataset.recipientsToConfigureUrl;
+    var saveConfiguredListUrl = $ddlRecipientLists.get(0).dataset.saveConfiguredListUrl;
+    var selectedReciientListId = 0;
 
     $ddlRecipientLists.select2({
         minimumInputLength: 0,
@@ -43,11 +45,35 @@
         moveOnSelect: false
     });
 
+    $("#btnSave").on("click", function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: saveConfiguredListUrl,
+            data: { ids: $dlbRecipients.val(), listId: selectedReciientListId },
+            dataType: "json",
+            traditional: true,
+            success: function (rawData) {
+               // alert(rawData);
+                var data = JSON.parse(rawData);
+            },
+            error: function (xhr) {
+                try {
+                    var json = $.parseJSON(xhr.responseText);
+                    alert(json.errorMessage);
+                } catch (e) {
+                    alert('something bad happened');
+                }
+            }
+        });
+    });
+
     $ddlRecipientLists.on("select2:select", function (e) {
+        selectedReciientListId = e.currentTarget.value;
         $.ajax({
             type: "GET",
             url: recipientsToConfigureUrl,
-            data: { id: e.currentTarget.value },
+            data: { id: selectedReciientListId },
             dataType: "json",
             traditional: true,
             success: function (rawData) {
@@ -83,11 +109,4 @@
             );
             return $optionItem;
     }
-
-    //ConfigureRecipientList.prototype.init = function init(el, formId) {
-    //    $el = el;
-    //    $form = $("#" + formId, $el);
-    //    $result = $("#result-" + formId, $el);
-    //    this.$form = $form;
-    //};
-};
+}
