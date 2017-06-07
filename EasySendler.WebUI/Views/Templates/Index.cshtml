@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new {@class="btn btn-success"})
 </p>
 <table class="table">
     <tr>
@@ -36,11 +36,14 @@
             @Html.DisplayFor(modelItem => item.Body)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TemplateId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TemplateId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TemplateId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.TemplateId }, new { @class = "btn btn-warning btn-xs" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TemplateId }, new { @class = "btn btn-info btn-xs" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TemplateId }, new { @class = "btn btn-danger btn-xs" })
         </td>
     </tr>
 }
 
 </table>
+
+
+

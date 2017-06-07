@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new {@class="btn btn-success"})
 </p>
 <table class="table">
     <tr>
@@ -72,9 +72,9 @@
             @Html.DisplayFor(modelItem => item.ImapPort)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MailSettingsId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MailSettingsId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MailSettingsId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.MailSettingsId }, new {@class="btn btn-warning btn-xs"}) |
+            @Html.ActionLink("Details", "Details", new { id=item.MailSettingsId }, new { @class = "btn btn-info btn-xs" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MailSettingsId }, new { @class = "btn btn-danger btn-xs" })
         </td>
     </tr>
 }

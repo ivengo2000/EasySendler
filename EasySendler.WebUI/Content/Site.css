@@ -25,8 +25,9 @@ textarea {
 .select2-search__field {
     max-width: none;
 }
-.ddl-select2-source {
-    width: 100%;
+.ddl-select2-source,
+.bootstrap-duallistbox-container select.form-control {
+    width: 150%;
     max-width: 100%;
 }
 .select2-results .option-item-name, .select2-selection .option-item-name {
@@ -39,3 +40,9 @@ textarea {
     margin: 0 10px;
     color: grey;
 }
+.select2,
+.select2-container,
+.select2-container--default {
+    max-width: 100%;
+}
+
