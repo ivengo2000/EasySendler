@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Body)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Thumbnail)
+        </th>
         <th></th>
     </tr>
 
@@ -33,7 +36,10 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Body)
+            <a href="@Url.Action("Details", "Templates", new { id = item.TemplateId })" class="template-link-entry">@Html.Raw(item.Body)</a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Thumbnail)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TemplateId }, new { @class = "btn btn-warning btn-xs" }) |
@@ -44,6 +50,3 @@
 }
 
 </table>
-
-
-

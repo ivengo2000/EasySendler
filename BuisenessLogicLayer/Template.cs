@@ -18,5 +18,6 @@ namespace BuisenessLogicLayer
         public string Name { get; set; }
         public string Description { get; set; }
         public string Body { get; set; }
+        public byte[] Thumbnail { get; set; }
     }
 }

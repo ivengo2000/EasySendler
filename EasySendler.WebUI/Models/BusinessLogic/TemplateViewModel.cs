@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace EasySendler.Models.BusinessLogic
 {
@@ -18,6 +19,11 @@ namespace EasySendler.Models.BusinessLogic
         [StringLength(250)]
         public string Description { get; set; }
 
+        [AllowHtml]
         public string Body { get; set; }
+
+        //public HtmlString Body { get; set; }
+
+        public byte[] Thumbnail { get; set; }
     }
 }

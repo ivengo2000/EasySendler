@@ -53,6 +53,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="Thumbnail" Type="image" />
         </EntityType>
         <Association Name="FK_RecipientListsRelation_RecipientLists">
           <End Role="RecipientLists" Type="Self.RecipientLists" Multiplicity="1" />
@@ -170,6 +171,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Thumbnail" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_RecipientListsRelation_RecipientLists">
           <End Type="MySmtpModel.RecipientList" Role="RecipientList" Multiplicity="1" />
@@ -253,6 +255,7 @@
           <EntitySetMapping Name="Templates">
             <EntityTypeMapping TypeName="MySmtpModel.Template">
               <MappingFragment StoreEntitySet="Templates">
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
                 <ScalarProperty Name="Body" ColumnName="Body" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
