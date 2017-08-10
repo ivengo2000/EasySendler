@@ -195,6 +195,25 @@ namespace EasySendler.Controllers
             };
         }
 
+        [HttpGet]
+        [JsonExceptionFilter]
+        public JsonResult GetRecipientsAmount(string id)
+        {
+            int rlId;
+            if (!int.TryParse(id, out rlId))
+            {
+                throw new JsonException("GetRecipientsToConfigure: id must be a number.");
+            }
+
+            var result = _db.sp_getRecipientCountByListId(rlId);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         [HttpPost]
         [JsonExceptionFilter]
         public JsonResult SaveConfiguredList(int[] ids, int listId)

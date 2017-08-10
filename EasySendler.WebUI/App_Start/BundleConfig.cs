@@ -17,7 +17,9 @@ namespace EasySendler
             bundles.Add(new ScriptBundle("~/bundles/additionaljq").Include(
                         "~/Scripts/select2.full.min.js",
                         "~/Scripts/jquery.bootstrap-duallistbox.min.js",
-                        "~/Scripts/site/ConfigureRecipientList.js"));
+                        "~/Scripts/jquery.knob.min.js",
+                        "~/Scripts/site/ConfigureRecipientList.js",
+                        "~/Scripts/site/Delivery.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
                         "~/Scripts/tinymce/tinymce.min.js",

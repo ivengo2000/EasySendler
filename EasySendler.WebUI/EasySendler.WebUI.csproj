@@ -191,6 +191,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MailSettingsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -243,6 +244,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.bootstrap-duallistbox.min.js" />
+    <Content Include="Scripts\jquery.knob.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -254,6 +256,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2.full.min.js" />
     <Content Include="Scripts\site\ConfigureRecipientList.js" />
+    <Content Include="Scripts\site\Delivery.js" />
     <Content Include="Scripts\site\TinyMCE.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
     <Content Include="Scripts\tinymce\license.txt" />
@@ -457,6 +460,7 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Delivery\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

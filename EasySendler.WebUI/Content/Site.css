@@ -55,6 +55,6 @@ textarea {
     text-decoration: none;
     opacity: 1;
 }
-
-
-
+.mt-30 {
+    margin-top: 30px;
+}

@@ -79,6 +79,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_getRecipientCountByListId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rlId" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_getRecipientsByListId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="rlId" Type="int" Mode="In" />
         </Function>
@@ -132,6 +135,9 @@
           </AssociationSet>
           <FunctionImport Name="sp_getRecipientsByListId" ReturnType="Collection(MySmtpModel.sp_getRecipientsByListIdResult)">
           <Parameter Name="rlId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getRecipientCountByListId" ReturnType="Collection(Int32)">
+            <Parameter Name="rlId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="RecipientList">
@@ -272,6 +278,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getRecipientCountByListId" FunctionName="MySmtpModel.Store.sp_getRecipientCountByListId" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -41,5 +41,14 @@ namespace BuisenessLogicLayer
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getRecipientsByListIdResult>("sp_getRecipientsByListId", rlIdParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> sp_getRecipientCountByListId(Nullable<int> rlId)
+        {
+            var rlIdParameter = rlId.HasValue ?
+                new ObjectParameter("rlId", rlId) :
+                new ObjectParameter("rlId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_getRecipientCountByListId", rlIdParameter);
+        }
     }
 }
