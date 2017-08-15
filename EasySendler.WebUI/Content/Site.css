@@ -58,3 +58,9 @@ textarea {
 .mt-30 {
     margin-top: 30px;
 }
+.modal-footer {
+    border-top: none; 
+}
+.modal-header {
+    border-bottom: none;
+}

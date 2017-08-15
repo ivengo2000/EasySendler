@@ -13,13 +13,12 @@
                 data-tags="false" data-placeholder="Select an option" data-allow-clear="true"
                 data-ajax--url="@Url.Action("GetRecipientListForDropDown", "RecipientLists")" data-ajax--cache="true"
                 data-recipients-amount-url="@Url.Action("GetRecipientsAmount", "RecipientLists")"
-                data-recipients-details-url="@Url.Action("SaveConfiguredList", "RecipientLists")"></select>
+                data-recipients-details-url="@Url.Action("GetRecipients", "RecipientLists")"></select>
         <div class="row mt-30">
             <div class="col col-sm-9"></div>
             <div class="col col-sm-3 text-right">
-                @Html.ActionLink("List  details ...", "Index", null, new { @class = "btn btn-success" })
+                <button id="btnOpenRecipientList" type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#recipientListDetails">List  details ...</button>
             </div>
-            
         </div>
     </div>
     <div class="col col-sm-4 text-center">
@@ -28,6 +27,39 @@
     </div>
 </div>
 
+<div id="recipientListDetails" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">List Details</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/template" id="recipientListDetailsTemplate">
+    <table class="table text-left">
+        <tbody>
+            <tr><th>Email</th><th>Name</th><th>SureName</th><th></th></tr>
+            <% _.each( items, function(item){ %>
+            <tr>
+                <td><a href="#"><%- item.Email %></a></td>
+                <td><a href="#"><%- item.Name %></a></td>
+                <td><a href="#"><%- item.SureName %></a></td>
+                <td><a class="btn btn-warning btn-xs" href="/Recipients/Details/<%- item.rId %>">Details</a> | <a class="btn btn-info btn-xs" href="/Recipients/Edit/<%- item.rId %>">Edit</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/additionaljq")

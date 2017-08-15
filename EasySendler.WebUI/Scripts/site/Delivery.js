@@ -4,11 +4,12 @@
     var pageSize = 10;
     var $ddlRecipientLists = $("#ddlRecipientLists");
     var $recipientAmount = $("#recipientAmount");
-    var $recipientAmountKnob;
-    //var $dlbRecipientsJq;
     var recipientsAmountUrl = $ddlRecipientLists.get(0).dataset.recipientsAmountUrl;
-    //var saveConfiguredListUrl = $ddlRecipientLists.get(0).dataset.saveConfiguredListUrl;
+    var recipientsDetailsUrl = $ddlRecipientLists.get(0).dataset.recipientsDetailsUrl;
     var selectedReciientListId = 0;
+    var $btnOpenRecipientList = $("#btnOpenRecipientList");
+    var $modalOpenRecipientList = $("#recipientListDetails");
+    var templateOpenRecipientList = $("#recipientListDetailsTemplate").html();
 
     $ddlRecipientLists.select2({
         minimumInputLength: 0,
@@ -38,6 +39,11 @@
         templateSelection: getTemplateForDdlOptions
     });
 
+    $ddlRecipientLists.on("select2:unselect", function(e) {
+        $recipientAmount.val(0).trigger('change');
+        $btnOpenRecipientList.removeClass("active").addClass("disabled");
+    });
+
     $ddlRecipientLists.on("select2:select", function (e) {
         selectedReciientListId = e.currentTarget.value;
         $.ajax({
@@ -49,21 +55,61 @@
             success: function (rawData) {
                 var data = JSON.parse(rawData);
                 $recipientAmount.val(data).trigger('change');
+                $btnOpenRecipientList.removeClass("disabled").addClass("active");
             },
-            error: function (xhr) {
-                try {
-                    var json = $.parseJSON(xhr.responseText);
-                    alert(json.errorMessage);
-                } catch (e) {
-                    alert('something bad happened');
-                }
-            }
+            error: getAjaxError
+            //error: function (xhr) {
+            //    try {
+            //        var json = $.parseJSON(xhr.responseText);
+            //        alert(json.errorMessage);
+            //    } catch (e) {
+            //        alert('something bad happened');
+            //    }
+            //}
         });
     });
 
-
     $(".dial").knob({
         "readOnly" : true
+    });
+
+    $modalOpenRecipientList.on("shown.bs.modal", function (e) {
+        var $modalBody = $modalOpenRecipientList.find("div.modal-body");
+        $modalBody.empty();
+        $.ajax({
+            type: "GET",
+            url: recipientsDetailsUrl,
+            data: { id: selectedReciientListId },
+            dataType: "json",
+            traditional: true,
+            success: function (rawData) {
+                var data = JSON.parse(rawData);
+                renderTemplate($modalBody, templateOpenRecipientList, { items: data });
+                //for (var i = 0; i < data.length; i++) {
+                //    $modalBody.append("<ul><li>" + data[i].Email + "</li><li>" + data[i].Name + "</li><li>" + data[i].SureName + "</li></ul>");
+                //}
+
+                //$recipientAmount.val(data).trigger('change');
+                //$btnOpenRecipientList.removeClass("disabled").addClass("active");
+            },
+            error: getAjaxError
+            //error: function (xhr) {
+            //    try {
+            //        var json = $.parseJSON(xhr.responseText);
+            //        alert(json.errorMessage);
+            //    } catch (e) {
+            //        alert('something bad happened');
+            //    }
+            //}
+        });
+    });
+
+    $btnOpenRecipientList.on("click", function (event) {
+        if ($(this).hasClass("disabled")) {
+            event.stopPropagation();
+        } else {
+            $('#applyRemoveDialog').modal("show");
+        }
     });
 
     function getTemplateForDdlOptions(data) {
@@ -75,5 +121,19 @@
           "<span class='option-item-name'>" + arr[0] + "</span><span class='option-item-descr-title'>description:</span><span class='option-item-description'>" + arr[1] + "</span>"
         );
         return $optionItem;
+    }
+
+    function getAjaxError(xhr) {
+        try {
+            var json = $.parseJSON(xhr.responseText);
+            alert(json.errorMessage);
+        } catch (e) {
+            alert('something bad happened');
+        }
+    }
+
+    function renderTemplate($target, $template, data) {
+        var tmpl = _.template($template);
+        $target.html(tmpl(data));
     }
 }

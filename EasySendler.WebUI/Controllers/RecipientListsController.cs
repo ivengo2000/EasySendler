@@ -30,6 +30,8 @@ namespace EasySendler.Controllers
                     .ForMember(dest => dest.Id, y => y.MapFrom(source => source.RecipientId))
                     .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Email))
                     .ForMember(dest => dest.IsSelected, y => y.MapFrom(source => source.Selected));
+                cfg.CreateMap<Recipient, RecipientsViewModel>()
+                    .ForMember(dest => dest.rId, y => y.MapFrom(source => source.RecipientId));
             });
         }
 
@@ -187,6 +189,25 @@ namespace EasySendler.Controllers
             }
 
             var result = _db.sp_getRecipientsByListId(rlId).AsQueryable().ProjectTo<DualListViewModel>().ToList();
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [HttpGet]
+        [JsonExceptionFilter]
+        public JsonResult GetRecipients(string id)
+        {
+            int rlId;
+            if (!int.TryParse(id, out rlId))
+            {
+                throw new JsonException("GetRecipientsToConfigure: id must be a number.");
+            }
+
+            var result = _db.RecipientListsRelations.Where(x => x.rlId.Equals(rlId)).Select(x => x.Recipient).AsQueryable().ProjectTo<RecipientsViewModel>().ToList();
 
             return new JsonResult
             {
