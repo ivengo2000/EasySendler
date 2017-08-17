@@ -1,4 +1,5 @@
-﻿@model EasySendler.Models.BusinessLogic.TemplateViewModel
+﻿@using EasySendler.Extensions
+@model EasySendler.Models.BusinessLogic.TemplateViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -32,7 +33,9 @@
         </dt>
 
         <dd>
-            @Html.Raw(Model.Body)
+            <a href="@Url.Action("Edit", "Templates", new {id = Model.TemplateId})">
+                @Html.Raw(Model.Body)
+            </a>
         </dd>
 
         <dt>
@@ -40,12 +43,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Thumbnail)
+            <a href="@Url.Action("Edit", "Templates", new {id = Model.TemplateId})">
+                @Html.ImageFromDb(Model.Thumbnail, null, null, new { @class = "template-thumbnail" })
+            </a>
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TemplateId }, new {@class="btn btn-warning"}) |
-    @Html.ActionLink("Back to List", "Index", null, new {@class="btn btn-default"})
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Edit", "Edit", new {id = Model.TemplateId}, new {@class = "btn btn-warning"})
 </p>

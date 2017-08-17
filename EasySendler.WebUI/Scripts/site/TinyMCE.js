@@ -4,7 +4,8 @@
     tinyMCE.init({
         plugins: "code",
         // General options
-        mode: "textareas",
+        mode : "specific_textareas",
+        editor_selector : "mceEditor",
         theme: "modern",
         // Theme options
         //theme_advanced_buttons1: "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",

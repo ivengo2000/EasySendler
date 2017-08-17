@@ -19,6 +19,7 @@ namespace EasySendler
                         "~/Scripts/jquery.bootstrap-duallistbox.min.js",
                         "~/Scripts/jquery.knob.min.js",
                         "~/Scripts/underscore.min.js",
+                        "~/Scripts/bootstrap-filestyle.min.js",
                         "~/Scripts/site/ConfigureRecipientList.js",
                         "~/Scripts/site/Delivery.js"));
 

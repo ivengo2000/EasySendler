@@ -9,7 +9,9 @@
     var selectedReciientListId = 0;
     var $btnOpenRecipientList = $("#btnOpenRecipientList");
     var $modalOpenRecipientList = $("#recipientListDetails");
+    var $modalTemplatesList = $("#templatesList");
     var templateOpenRecipientList = $("#recipientListDetailsTemplate").html();
+    var templatesListTemplate = $("#templatesListTemplate").html();
 
     $ddlRecipientLists.select2({
         minimumInputLength: 0,
@@ -58,14 +60,6 @@
                 $btnOpenRecipientList.removeClass("disabled").addClass("active");
             },
             error: getAjaxError
-            //error: function (xhr) {
-            //    try {
-            //        var json = $.parseJSON(xhr.responseText);
-            //        alert(json.errorMessage);
-            //    } catch (e) {
-            //        alert('something bad happened');
-            //    }
-            //}
         });
     });
 
@@ -85,31 +79,32 @@
             success: function (rawData) {
                 var data = JSON.parse(rawData);
                 renderTemplate($modalBody, templateOpenRecipientList, { items: data });
-                //for (var i = 0; i < data.length; i++) {
-                //    $modalBody.append("<ul><li>" + data[i].Email + "</li><li>" + data[i].Name + "</li><li>" + data[i].SureName + "</li></ul>");
-                //}
-
-                //$recipientAmount.val(data).trigger('change');
-                //$btnOpenRecipientList.removeClass("disabled").addClass("active");
             },
             error: getAjaxError
-            //error: function (xhr) {
-            //    try {
-            //        var json = $.parseJSON(xhr.responseText);
-            //        alert(json.errorMessage);
-            //    } catch (e) {
-            //        alert('something bad happened');
-            //    }
-            //}
         });
     });
 
     $btnOpenRecipientList.on("click", function (event) {
         if ($(this).hasClass("disabled")) {
             event.stopPropagation();
-        } else {
-            $('#applyRemoveDialog').modal("show");
-        }
+        } 
+    });
+
+    $modalTemplatesList.on("shown.bs.modal", function (e) {
+        var $modalBody = $modalTemplatesList.find("div.modal-body");
+        $modalBody.empty();
+        $.ajax({
+            type: "GET",
+            url: $modalTemplatesList.get(0).dataset.templatesListUrl,
+            data: { },
+            dataType: "json",
+            traditional: true,
+            success: function (rawData) {
+                var data = JSON.parse(rawData);
+                renderTemplate($modalBody, templatesListTemplate, { items: data });
+            },
+            error: getAjaxError
+        });
     });
 
     function getTemplateForDdlOptions(data) {

@@ -1,52 +1,34 @@
-﻿@model IEnumerable<EasySendler.Models.BusinessLogic.TemplateViewModel>
+﻿@using EasySendler.Extensions
+@model IEnumerable<EasySendler.Models.BusinessLogic.TemplateViewModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Templates</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create", null, new {@class="btn btn-success"})
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Body)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Thumbnail)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            <a href="@Url.Action("Details", "Templates", new { id = item.TemplateId })" class="template-link-entry">@Html.Raw(item.Body)</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Thumbnail)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TemplateId }, new { @class = "btn btn-warning btn-xs" }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TemplateId }, new { @class = "btn btn-info btn-xs" }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TemplateId }, new { @class = "btn btn-danger btn-xs" })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-12 col-xs-12 col-md-4 col-lg-3">
+            <div class="thumbnail bootsnipp-thumb">
+                <a href="@Url.Action("Details", "Templates", new {id = item.TemplateId})">
+                    <h5 class="title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                </a>
+                <a href="@Url.Action("Details", "Templates", new {id = item.TemplateId})" class="template-link-entry">
+                    @Html.ImageFromDb(item.Thumbnail, null, null, new { @class = "template-thumbnail" })
+                </a>
+                <div class="caption">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TemplateId }, new { @class = "btn btn-warning btn-xs" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TemplateId }, new { @class = "btn btn-info btn-xs" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TemplateId }, new { @class = "btn btn-danger btn-xs" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
