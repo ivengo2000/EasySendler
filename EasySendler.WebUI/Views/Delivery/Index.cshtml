@@ -9,17 +9,36 @@
 <div class="row">
     <div class="col col-sm-8">
         <h4>Recipients</h4>
-
-        <div class="row mt-30">
-            <div class="col col-sm-9">
+        <div class="row mtb-30">
+            <div class="col col-sm-10">
                 <select id="ddlRecipientLists" class="ddl-select2-source"
                         data-tags="false" data-placeholder="Select a Recipient list ..." data-allow-clear="true"
                         data-ajax--url="@Url.Action("GetRecipientListForDropDown", "RecipientLists")" data-ajax--cache="true"
                         data-recipients-amount-url="@Url.Action("GetRecipientsAmount", "RecipientLists")"
                         data-recipients-details-url="@Url.Action("GetRecipients", "RecipientLists")"></select>
             </div>
-            <div class="col col-sm-3">
-                <button id="btnOpenRecipientList" type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#recipientListDetails">List  details ...</button>
+            <div class="col col-sm-2">
+                <button id="btnOpenRecipientList" type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#recipientListDetails">List details ...</button>
+            </div>
+        </div>
+        <div class="row mtb-30">
+            <div class="col col-sm-12">
+                <h4>Templates</h4>
+                <div class="input-group igTemplates">
+                    <span class="input-group-btn">
+                        <button id="btnTemplates" class="btn btn-success" type="button" data-toggle="modal" data-target="#templatesList">Select a Template ...</button>
+                    </span>
+                    <input id="txtTemplates" type="text" class="form-control" placeholder="" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mtb-30">
+            <div class="col col-sm-12">
+                <h4>Settings</h4>
+                <select id="ddlMailSettingsLists" class="ddl-select2-source"
+                        data-tags="false" data-placeholder="Select a Mail Settings and and email for  send from ..." data-allow-clear="true"
+                        data-ajax--url="@Url.Action("GetForDropDown", "MailSettings")" data-ajax--cache="true"></select>
             </div>
         </div>
     </div>
@@ -28,25 +47,8 @@
         <input type="text" value="0" class="dial" id="recipientAmount" data-width="200" data-height="200" data-linecap="round" data-angleOffset="-125" data-angleArc="250">
     </div>
 </div>
-<div class="row">
-    <div class="col col-sm-8">
-        <h4>Templates</h4>
-        <div class="input-group igTemplates">
-            <span class="input-group-btn">
-                <button id="btnTemplates" class="btn btn-success" type="button" data-toggle="modal" data-target="#templatesList">Select a Template ...</button>
-            </span>
-            <input id="txtTemplates" type="text" class="form-control" placeholder="" readonly>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col col-sm-8">
-        <h4>Settings</h4>
-        <select id="ddlMailSettingsLists" class="ddl-select2-source"
-                data-tags="false" data-placeholder="Select a Mail Settings and and email for  send from ..." data-allow-clear="true"
-                data-ajax--url="@Url.Action("GetForDropDown", "MailSettings")" data-ajax--cache="true"></select>
-    </div>
-</div>
+
+<button id="btnRun" value="Run" class="btn btn-danger btn-lg disabled">Run</button>
 
 <div id="recipientListDetails" class="modal fade" role="dialog">
     <div class="modal-dialog">

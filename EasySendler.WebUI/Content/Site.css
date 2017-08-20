@@ -68,6 +68,10 @@ textarea {
 .mt-30 {
     margin-top: 30px;
 }
+.mtb-30 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
 .modal-footer {
     border-top: none; 
 }

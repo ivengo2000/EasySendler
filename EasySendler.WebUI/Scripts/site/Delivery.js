@@ -9,6 +9,8 @@
     var recipientsDetailsUrl = $ddlRecipientLists.get(0).dataset.recipientsDetailsUrl;
     var selectedReciientListId = null;
     var selectedTemplateId = null;
+    var selectedMailSettingsId = null;
+    var $btnRun = $("#btnRun");
     var $btnOpenRecipientList = $("#btnOpenRecipientList");
     var $modalOpenRecipientList = $("#recipientListDetails");
     var $modalTemplatesList = $("#templatesList");
@@ -47,6 +49,8 @@
     $ddlRecipientLists.on("select2:unselect", function(e) {
         $recipientAmount.val(0).trigger('change');
         $btnOpenRecipientList.removeClass("active").addClass("disabled");
+        selectedReciientListId = null;
+        checkConditionsToRun();
     });
 
     $ddlRecipientLists.on("select2:select", function (e) {
@@ -61,6 +65,7 @@
                 var data = JSON.parse(rawData);
                 $recipientAmount.val(data).trigger('change');
                 $btnOpenRecipientList.removeClass("disabled").addClass("active");
+                checkConditionsToRun();
             },
             error: getAjaxError
         });
@@ -142,14 +147,31 @@
         templateSelection: getTemplateForDdlOptions
     });
 
+    $ddlMailSettingsLists.on("select2:select", function (e) {
+        selectedMailSettingsId = e.currentTarget.value;
+        checkConditionsToRun();
+    });
 
+    $ddlMailSettingsLists.on("select2:unselect", function (e) {
+        selectedMailSettingsId = null;
+        checkConditionsToRun();
+    });
+
+    function checkConditionsToRun() {
+        if (selectedReciientListId && selectedTemplateId && selectedMailSettingsId) {
+            $btnRun.removeClass("disabled").addClass("active");
+        } else {
+            $btnRun.removeClass("active").addClass("disabled");
+        }
+    }
 
     function initTemplatesLinks() {
         $modalTemplatesList.find("a.template-link").on("click", function (e) {
             var link = e.currentTarget;
             selectedTemplateId = link.dataset.selectedTemplateId;
             $txtTemplates.val(link.dataset.selectedTemplateName);
-            $modalTemplatesList.modal('hide');;
+            $modalTemplatesList.modal('hide');
+            checkConditionsToRun();
         });
     }
 
