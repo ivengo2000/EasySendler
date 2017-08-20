@@ -24,5 +24,6 @@ namespace BuisenessLogicLayer
         public bool EnableSSL { get; set; }
         public string Imap { get; set; }
         public string ImapPort { get; set; }
+        public string Description { get; set; }
     }
 }

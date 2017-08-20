@@ -60,11 +60,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EnableSSL)
+            @Html.DisplayNameFor(model => model.EnableSsl)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EnableSSL)
+            @Html.CheckBoxFor(model => model.EnableSsl, new { data_toggle = "toggle", data_width = "50", data_height = "22", disabled="true" })
         </dd>
 
         <dt>
@@ -83,9 +83,17 @@
             @Html.DisplayFor(model => model.ImapPort)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MailSettingsId }, new { @class = "btn btn-warning btn-xs" }) |
-    @Html.ActionLink("Back to List", "Index",null, new { @class = "btn btn-default btn-xs" })
+    @Html.ActionLink("Back to List", "Index",null, new { @class = "btn btn-default" }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MailSettingsId }, new { @class = "btn btn-warning" })
 </p>

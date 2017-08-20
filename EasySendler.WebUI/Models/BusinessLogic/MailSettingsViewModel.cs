@@ -34,12 +34,14 @@ namespace EasySendler.Models.BusinessLogic
 
         [Required]
         [StringLength(200)]
-        public string EnableSSL { get; set; }
+        public bool EnableSsl { get; set; }
 
         [StringLength(200)]
         public string Imap { get; set; }
 
         [StringLength(200)]
         public string ImapPort { get; set; }
+
+        public string Description { get; set; }
     }
 }

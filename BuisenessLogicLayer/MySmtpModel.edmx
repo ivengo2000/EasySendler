@@ -19,6 +19,7 @@
           <Property Name="EnableSSL" Type="bit" Nullable="false" />
           <Property Name="Imap" Type="nvarchar" MaxLength="200" />
           <Property Name="ImapPort" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="RecipientLists">
           <Key>
@@ -118,6 +119,7 @@
           <Property Name="EnableSSL" Type="Boolean" Nullable="false" />
           <Property Name="Imap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ImapPort" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="MySmtpEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MailSettings" EntityType="Self.MailSetting" />
@@ -137,7 +139,7 @@
           <Parameter Name="rlId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_getRecipientCountByListId" ReturnType="Collection(Int32)">
-            <Parameter Name="rlId" Mode="In" Type="Int32" />
+          <Parameter Name="rlId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="RecipientList">
@@ -217,6 +219,7 @@
           <EntitySetMapping Name="MailSettings">
             <EntityTypeMapping TypeName="MySmtpModel.MailSetting">
               <MappingFragment StoreEntitySet="MailSettings">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="MailSettingsId" ColumnName="MailSettingsId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

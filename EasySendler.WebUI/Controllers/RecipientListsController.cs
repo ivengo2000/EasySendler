@@ -149,6 +149,7 @@ namespace EasySendler.Controllers
         }
 
         [HttpGet]
+        [JsonExceptionFilter]
         public JsonResult GetRecipientListForDropDown(string searchTerm, int pageSize, int pageNum)
         {
             List<DropDownViewModel> results;

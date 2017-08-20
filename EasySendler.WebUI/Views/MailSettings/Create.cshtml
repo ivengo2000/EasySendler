@@ -65,11 +65,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EnableSSL, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.EnableSsl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.EnableSSL)
-                    @Html.ValidationMessageFor(model => model.EnableSSL, "", new { @class = "text-danger" })
+                    @Html.CheckBoxFor(model => model.EnableSsl, new { data_toggle = "toggle", data_width = "100", data_height = "34", data_onstyle = "success" })
                 </div>
             </div>
         </div>
@@ -91,15 +90,23 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Create" class="btn btn-success btn-lg" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default btn-xs" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {

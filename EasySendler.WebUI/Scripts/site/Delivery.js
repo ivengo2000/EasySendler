@@ -3,13 +3,16 @@
 
     var pageSize = 10;
     var $ddlRecipientLists = $("#ddlRecipientLists");
+    var $ddlMailSettingsLists = $("#ddlMailSettingsLists");
     var $recipientAmount = $("#recipientAmount");
     var recipientsAmountUrl = $ddlRecipientLists.get(0).dataset.recipientsAmountUrl;
     var recipientsDetailsUrl = $ddlRecipientLists.get(0).dataset.recipientsDetailsUrl;
-    var selectedReciientListId = 0;
+    var selectedReciientListId = null;
+    var selectedTemplateId = null;
     var $btnOpenRecipientList = $("#btnOpenRecipientList");
     var $modalOpenRecipientList = $("#recipientListDetails");
     var $modalTemplatesList = $("#templatesList");
+    var $txtTemplates = $("#txtTemplates");
     var templateOpenRecipientList = $("#recipientListDetailsTemplate").html();
     var templatesListTemplate = $("#templatesListTemplate").html();
 
@@ -90,9 +93,12 @@
         } 
     });
 
+    $modalTemplatesList.on("show.bs.modal", function(e) {
+        $(this).find("div.modal-body").empty();
+    });
+
     $modalTemplatesList.on("shown.bs.modal", function (e) {
-        var $modalBody = $modalTemplatesList.find("div.modal-body");
-        $modalBody.empty();
+        var $modalBody = $(this).find("div.modal-body");
         $.ajax({
             type: "GET",
             url: $modalTemplatesList.get(0).dataset.templatesListUrl,
@@ -102,10 +108,50 @@
             success: function (rawData) {
                 var data = JSON.parse(rawData);
                 renderTemplate($modalBody, templatesListTemplate, { items: data });
+                initTemplatesLinks();
             },
             error: getAjaxError
         });
     });
+
+    $ddlMailSettingsLists.select2({
+        minimumInputLength: 0,
+        ajax: {
+            quietMillis: 500,
+            dataType: "json",
+            delay: 500,
+            data: function (params) {
+                return {
+                    pageSize: pageSize,
+                    pageNum: params.page || 1,
+                    searchTerm: params.term
+                };
+            },
+            processResults: function (rawData, params) {
+                var data = JSON.parse(rawData);
+                params.page = params.page || 1;
+                return {
+                    results: data.Results,
+                    pagination: {
+                        more: params.page * parseInt(pageSize) < data.Total
+                    }
+                };
+            }
+        },
+        templateResult: getTemplateForDdlOptions,
+        templateSelection: getTemplateForDdlOptions
+    });
+
+
+
+    function initTemplatesLinks() {
+        $modalTemplatesList.find("a.template-link").on("click", function (e) {
+            var link = e.currentTarget;
+            selectedTemplateId = link.dataset.selectedTemplateId;
+            $txtTemplates.val(link.dataset.selectedTemplateName);
+            $modalTemplatesList.modal('hide');;
+        });
+    }
 
     function getTemplateForDdlOptions(data) {
         if (!data.id) {

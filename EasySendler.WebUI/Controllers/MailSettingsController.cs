@@ -1,11 +1,15 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BuisenessLogicLayer;
+using EasySendler.Extensions;
 using EasySendler.Models.BusinessLogic;
+using EasySendler.Models.Controls;
+using Newtonsoft.Json;
 
 namespace EasySendler.Controllers
 {
@@ -15,13 +19,50 @@ namespace EasySendler.Controllers
 
         public MailSettingsController()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<MailSetting, MailSettingViewModel>());
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<MailSetting, MailSettingViewModel>();
+                cfg.CreateMap<MailSetting, DropDownViewModel>()
+                    .ForMember(dest => dest.Id, y => y.MapFrom(source => source.MailSettingsId))
+                    .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Email + "|" + source.Description));
+            });
         }
 
         // GET: MailSettings
         public ActionResult Index()
         {
             return View(db.MailSettings.ProjectTo<MailSettingViewModel>().ToList());
+        }
+
+        [HttpGet]
+        [JsonExceptionFilter]
+        public JsonResult GetForDropDown(string searchTerm, int pageSize, int pageNum)
+        {
+            List<DropDownViewModel> results;
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                results = db.MailSettings.OrderBy(x => x.MailSettingsId)
+                    .Skip((pageNum - 1) * pageSize).Take(pageSize)
+                    .ProjectTo<DropDownViewModel>().ToList();
+            }
+            else
+            {
+                results = db.MailSettings.Where(x => x.Email.Contains(searchTerm))
+                    .OrderBy(x => x.MailSettingsId).Skip((pageNum - 1) * pageSize).Take(pageSize)
+                    .ProjectTo<DropDownViewModel>().ToList();
+            }
+
+            var result = new DropDownPagedViewModel
+            {
+                Results = results,
+                Total = db.MailSettings.Count()
+            };
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         // GET: MailSettings/Details/5
@@ -82,7 +123,7 @@ namespace EasySendler.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MailSettingsId,Email,Password,SMTP,SMTPPort,Pop3,Pop3Port,EnableSSL,Imap,ImapPort")] MailSetting mailSetting)
+        public ActionResult Edit([Bind(Include = "MailSettingsId,Email,Password,SMTP,SMTPPort,Pop3,Pop3Port,EnableSSL,Imap,ImapPort,Description")] MailSetting mailSetting)
         {
             if (ModelState.IsValid)
             {

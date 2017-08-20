@@ -34,12 +34,14 @@ namespace EasySendler
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap2-toggle.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/select2.min.css",
                       "~/Content/bootstrap-duallistbox.min.css",
+                      "~/Content/bootstrap2-toggle.min.css",
                       "~/Content/site.css"));
         }
     }

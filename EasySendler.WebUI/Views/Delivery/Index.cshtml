@@ -9,14 +9,16 @@
 <div class="row">
     <div class="col col-sm-8">
         <h4>Recipients</h4>
-        <select id="ddlRecipientLists" class="ddl-select2-source"
-                data-tags="false" data-placeholder="Select a Recipient list ..." data-allow-clear="true"
-                data-ajax--url="@Url.Action("GetRecipientListForDropDown", "RecipientLists")" data-ajax--cache="true"
-                data-recipients-amount-url="@Url.Action("GetRecipientsAmount", "RecipientLists")"
-                data-recipients-details-url="@Url.Action("GetRecipients", "RecipientLists")"></select>
+
         <div class="row mt-30">
-            <div class="col col-sm-9"></div>
-            <div class="col col-sm-3 text-right">
+            <div class="col col-sm-9">
+                <select id="ddlRecipientLists" class="ddl-select2-source"
+                        data-tags="false" data-placeholder="Select a Recipient list ..." data-allow-clear="true"
+                        data-ajax--url="@Url.Action("GetRecipientListForDropDown", "RecipientLists")" data-ajax--cache="true"
+                        data-recipients-amount-url="@Url.Action("GetRecipientsAmount", "RecipientLists")"
+                        data-recipients-details-url="@Url.Action("GetRecipients", "RecipientLists")"></select>
+            </div>
+            <div class="col col-sm-3">
                 <button id="btnOpenRecipientList" type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#recipientListDetails">List  details ...</button>
             </div>
         </div>
@@ -35,6 +37,14 @@
             </span>
             <input id="txtTemplates" type="text" class="form-control" placeholder="" readonly>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-sm-8">
+        <h4>Settings</h4>
+        <select id="ddlMailSettingsLists" class="ddl-select2-source"
+                data-tags="false" data-placeholder="Select a Mail Settings and and email for  send from ..." data-allow-clear="true"
+                data-ajax--url="@Url.Action("GetForDropDown", "MailSettings")" data-ajax--cache="true"></select>
     </div>
 </div>
 
@@ -91,19 +101,24 @@
 </script>
 
 <script type="text/template" id="templatesListTemplate">
-    <table class="table text-left">
-        <tbody>
-            <tr><th>Name</th><th>Description</th><th>Body</th></tr>
-            <% _.each( items, function(item){ %>
-            <tr>
-                <td><a href="#"><%- item.Name %></a></td>
-                <td><a href="#"><%- item.Description %></a></td>
-                <td><a href="#"><%- item.Body %></a></td>
-                @*<td><a class="btn btn-warning btn-xs" href="/Recipients/Details/<%- item.rId %>">Details</a> | <a class="btn btn-info btn-xs" href="/Recipients/Edit/<%- item.rId %>">Edit</a></td>*@
-            </tr>
-            <% }); %>
-        </tbody>
-    </table>
+    <div class="row">
+        <% _.each( items, function(item){ %>
+        <div class="col-sm-12 col-xs-12 col-md-4 col-lg-3">
+            <div class="thumbnail bootsnipp-thumb">
+                <a href="/Templates/Details/<%- item.TemplateId %>">
+                    <h5 class="title"><%- item.Name %></h5>
+                </a>
+                <a href="javascript:void(0)" class="template-link-entry template-link" title="<%- item.Description %>" data-selected-template-id="<%- item.TemplateId %>" data-selected-template-name="<%- item.Name %>">
+                   <% if(item.Thumbnail){ %>
+                        <img src="data:image/png;base64,<%- item.Thumbnail %>" class="template-thumbnail" />
+                   <% }else{ %>
+                        <img src="/UploadImages/NoImage.jpg" class="template-thumbnail" />
+                   <% } %>
+                </a>
+            </div>
+        </div>
+        <% }); %>
+    </div>
 </script>
 
 @section Scripts {

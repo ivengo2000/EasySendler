@@ -16,9 +16,6 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.SMTP)
         </th>
         <th>
@@ -31,7 +28,7 @@
             @Html.DisplayNameFor(model => model.Pop3Port)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EnableSSL)
+            @Html.DisplayNameFor(model => model.EnableSsl)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Imap)
@@ -48,9 +45,6 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.SMTP)
         </td>
         <td>
@@ -63,7 +57,7 @@
             @Html.DisplayFor(modelItem => item.Pop3Port)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EnableSSL)
+            @Html.CheckBoxFor(modelItem => item.EnableSsl, new { data_toggle = "toggle", data_width = "50", data_height = "22", disabled = "true" })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Imap)

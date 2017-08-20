@@ -34,7 +34,7 @@
         </dt>
 
         <dd>
-            @Html.TextAreaFor(model => model.Body)
+            @Html.Raw(Model.Body)
         </dd>
 
         <dt>
@@ -51,7 +51,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            @Html.ActionLink("Back to List", "Index", null, new {@class = "btn btn-default btn-xs"}) |
+            @Html.ActionLink("Back to List", "Index", null, new {@class = "btn btn-default"}) |
             <input type="submit" value="Delete" class="btn btn-danger" />
         </div>
     }
