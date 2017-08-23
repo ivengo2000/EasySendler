@@ -166,19 +166,6 @@
         if ($(this).hasClass("disabled")) {
             event.stopPropagation();
         } else {
-            //$.ajax({
-            //    type: "GET",
-            //    url: $modalTemplatesList.get(0).dataset.templatesListUrl,
-            //    data: {},
-            //    dataType: "json",
-            //    traditional: true,
-            //    success: function (rawData) {
-            //        var data = JSON.parse(rawData);
-            //        //renderTemplate($modalBody, templatesListTemplate, { items: data });
-            //        //initTemplatesLinks();
-            //    },
-            //    error: getAjaxError
-            //});
             $.ajax({
                 type: "GET",
                 url: recipientsDetailsUrl,
@@ -187,77 +174,13 @@
                 traditional: true,
                 success: function (rawData) {
                     var data = JSON.parse(rawData);
-
-                    sendEmail(data, 0);
-
-
-                    ////renderTemplate($modalBody, templateOpenRecipientList, { items: data });
-                    ////for (var j = 0; j < data.length; j++) {
-                    ////    var email = data[j].Email;
-                    ////    var name = data[j].Name;
-                    ////    var sureName = data[j].SureName;
-                    ////        var selectedtId = selectedTemplateId;
-                    ////        var selectedmsId = selectedMailSettingsId;
-                    ////        setTimeout(function(j) {
-                    ////            $runProgress.val(j + 1).trigger("change");
-                    ////        }, 1000);
-                    ////}
-                    //var promises = 0;
-                    //_.each(data, function(item, i, all) {
-                    //    var email = item.Email;
-                    //    var name = item.Name;
-                    //    var sureName = item.SureName;
-                    //    var selectedtId = selectedTemplateId;
-                    //    var selectedmsId = selectedMailSettingsId;
-                    //    //setTimeout(function() {
-                    //    //    $runProgress.val(i + 1).trigger("change");
-                    //    //}, 1000);
-
-                    //    //alert(i);
-
-
-                    //    var promise = $.ajax({
-                    //        type: "GET",
-                    //        dataType: "json",
-                    //        data: { email: email, name: name, sureName: sureName, templateId: selectedtId, mailSettingsId: selectedmsId },
-                    //        url: runUrl,
-                    //        success: function (response) {
-                    //            alert("success" + i);
-                    //            //var data = {
-                    //            //    temperature: response.currently.temperature,
-                    //            //    dewPoint: response.currently.dewPoint,
-                    //            //    humidity: response.currently.humidity,
-                    //            //    windSpeed: response.currently.windSpeed,
-                    //            //    windBearing: response.currently.windBearing,
-                    //            //    pressure: response.currently.pressure
-                    //            //};
-
-                    //            //historyData[moment().year() - i] = data
-
-                    //            //console.log(data);
-                    //        }
-                    //    });
-
-                    //    promise.done(function () {
-                    //        alert("done" + i);
-                    //        promises++;
-                    //        $runProgress.val(promises).trigger("change");
-                    //        console.log(promises);
-                    //        if (promises === all.length) {
-                    //            //bindweatherHistoryTable();
-                    //            alert('finish');
-                    //        }
-                    //    });
-
-
-                    //});
+                    sendEmail(data, 0); 
                 },
                 error: getAjaxError
             });
         }
     });
 
-   // function sendEmail(email, name, sureName, selectedtId, selectedmsId) {
     function sendEmail(data, index) {
         var item = data[index];
         var email = item.Email;
@@ -272,7 +195,6 @@
             url: runUrl,
             success: function (response) {
                 $runProgress.val(parseInt($runProgress.val(), 10) + 1).trigger("change");
-               // alert("success");
                 if (index < data.length - 1) {
                     sendEmail(data, index + 1);
                 }
