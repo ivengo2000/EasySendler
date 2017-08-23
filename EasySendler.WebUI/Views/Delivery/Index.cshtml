@@ -48,7 +48,9 @@
     </div>
 </div>
 
-<button id="btnRun" value="Run" class="btn btn-danger btn-lg disabled">Run</button>
+<button id="btnRun" value="Run" class="btn btn-danger btn-lg disabled" data-run-url="@Url.Action("Run", "Delivery")">Run</button>
+
+<input type="text" value="0" class="dial" id="runProgress" data-width="200" data-height="200" data-linecap="round" data-angleOffset="-125" data-angleArc="250">
 
 <div id="recipientListDetails" class="modal fade" role="dialog">
     <div class="modal-dialog">
