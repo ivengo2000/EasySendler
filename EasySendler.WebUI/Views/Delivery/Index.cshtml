@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Delivery";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -45,6 +45,12 @@
     <div class="col col-sm-4 text-center">
         <h4>Count of Recipients in the List</h4>
         <input type="text" value="0" class="dial" id="recipientAmount" data-width="200" data-height="200" data-linecap="round" data-angleOffset="-125" data-angleArc="250">
+        <div class="knob-legend text-center">
+            <ul>
+                <li><span class="label gray">&nbsp;&nbsp;</span>Allowed</li>
+                <li><span class="label blue">&nbsp;&nbsp;</span>Count in list</li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -56,11 +62,17 @@
 
     <div class="col col-sm-6">
         <h4>Process</h4>
-        <div id="runningProcess"></div>
+        <div id="runningProcess" class="form-control"></div>
     </div>
     <div class="col col-sm-4 text-center">
         <h4>Progress</h4>
         <input type="text" value="0" class="dial" id="runProgress" data-width="200" data-height="200" data-linecap="round" data-angleOffset="-125" data-angleArc="250">
+        <div class="knob-legend text-center">
+            <ul>
+                <li><span class="label gray">&nbsp;&nbsp;</span>Pending</li>
+                <li><span class="label blue">&nbsp;&nbsp;</span>Sent</li>
+            </ul>
+        </div>
     </div>
 </div>
     

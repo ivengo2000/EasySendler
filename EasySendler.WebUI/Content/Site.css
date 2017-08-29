@@ -103,3 +103,36 @@ textarea {
 .group-span-filestyle {
     width: auto;
 }
+.knob-legend {
+    width: 200px;    
+    display: inline-block;
+}
+.knob-legend ul {
+    text-align: left;
+    list-style-type: none;
+}
+.knob-legend > ul > li > span {
+    margin-right: 10px
+}
+.knob-legend > ul > li > span.gray {
+    background-color: #EDEDED;
+}
+.knob-legend > ul > li > span.blue {
+    background-color: #87ceeb;
+}
+#runningProcess {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+.inverse-drowdown {
+    /*opacity: 0.8;*/
+    background-color: black;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.inverse-drowdown li a {
+    color: #9d9d9d;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
