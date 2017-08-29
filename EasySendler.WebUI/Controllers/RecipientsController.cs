@@ -6,13 +6,26 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using BuisenessLogicLayer;
+using EasySendler.Models.BusinessLogic;
 
 namespace EasySendler.Controllers
 {
     public class RecipientsController : Controller
     {
         private MySmtpEntities db = new MySmtpEntities();
+
+        public RecipientsController()
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Recipient, RecipientsViewModel>()
+                    .ForMember(dest => dest.rId, y => y.MapFrom(source => source.RecipientId));
+                cfg.CreateMap<RecipientsViewModel, Recipient>()
+                    .ForMember(dest => dest.RecipientId, y => y.MapFrom(source => source.rId));
+            });
+        }
 
         // GET: Recipients
         public ActionResult Index()
@@ -55,7 +68,7 @@ namespace EasySendler.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(recipient);
+            return View(Mapper.Map<RecipientsViewModel>(recipient));
         }
 
         // GET: Recipients/Edit/5
@@ -70,7 +83,7 @@ namespace EasySendler.Controllers
             {
                 return HttpNotFound();
             }
-            return View(recipient);
+            return View(Mapper.Map<RecipientsViewModel>(recipient));
         }
 
         // POST: Recipients/Edit/5
@@ -78,15 +91,24 @@ namespace EasySendler.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RecipientId,Email,Name,SureName")] Recipient recipient)
+        public ActionResult Edit([Bind(Include = "rId,Email,Name,SureName")] RecipientsViewModel recipientsViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recipient).State = EntityState.Modified;
-                db.SaveChanges();
+                Recipient recipient = db.Recipients.Find(recipientsViewModel.rId);
+                if (recipient != null)
+                {
+                    recipient.Email = recipientsViewModel.Email;
+                    recipient.Name = recipientsViewModel.Name;
+                    recipient.SureName = recipientsViewModel.SureName;
+
+                    db.SaveChanges();
+                }
+                
                 return RedirectToAction("Index");
             }
-            return View(recipient);
+
+            return View(recipientsViewModel);
         }
 
         // GET: Recipients/Delete/5

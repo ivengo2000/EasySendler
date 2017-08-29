@@ -145,11 +145,8 @@ namespace EasySendler.Controllers
                             {
                                 if (fileLenght <= 1048576)
                                 {
-                                    //var path = Path.Combine(HttpContext.Request.MapPath("~/UploadImages/"), fileName);
-
-                                    System.Drawing.Bitmap bmpPostedImage = new System.Drawing.Bitmap(file.InputStream);
-                                   // System.Drawing.Image objImage = ScaleImage(bmpPostedImage, 300);
-                                    System.Drawing.Image objImage = Scale(bmpPostedImage);
+                                    Bitmap bmpPostedImage = new Bitmap(file.InputStream);
+                                    Image objImage = Scale(bmpPostedImage);
                                     byte[] uploadedFile = ImageToByteArray(objImage);
                                     file.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
                                     template.Thumbnail = uploadedFile;
@@ -165,17 +162,7 @@ namespace EasySendler.Controllers
                                 //lblmsg.Text = "Invaild Format!";
                                 //lblmsg.Style.Add("Color", "Red");
                             }
-
-
-
-
-
-
-
-
-
-
-                            
+ 
                            // byte[] uploadedFile = new byte[newFileStream.Length];
                             //byte[] uploadedFile = new byte[file.InputStream.Length];
                             //file.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
@@ -237,21 +224,6 @@ namespace EasySendler.Controllers
             base.Dispose(disposing);
         }
 
-        //public static System.Drawing.Image ScaleImage(System.Drawing.Image image, int maxHeight)
-        //{
-        //    //var ratio = (double)maxHeight / image.Height;
-        //    //var newWidth = (int)(image.Width * ratio);
-        //    //var newHeight = (int)(image.Height * ratio);
-        //    var newWidth = maxHeight;
-        //    var newHeight = maxHeight;
-        //    var newImage = new Bitmap(newWidth, newHeight);
-        //    using (var g = Graphics.FromImage(newImage))
-        //    {
-        //        g.DrawImage(image, 0, 0, newWidth, newHeight);
-        //    }
-        //    return newImage;
-        //}
-
         private Image Scale(Image imgPhoto)
         {
             float sourceWidth = imgPhoto.Width;
@@ -304,7 +276,6 @@ namespace EasySendler.Controllers
         {
             using (var ms = new MemoryStream())
             {
-                //image.Save(ms, image.RawFormat);
                 image.Save(ms, ImageFormat.Png);
                 return ms.ToArray();
             }

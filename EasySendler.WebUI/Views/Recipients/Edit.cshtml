@@ -1,4 +1,4 @@
-﻿@model BuisenessLogicLayer.Recipient
+﻿@model EasySendler.Models.BusinessLogic.RecipientsViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -16,7 +16,7 @@
         <h4>Recipient</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.RecipientId)
+        @Html.HiddenFor(model => model.rId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })

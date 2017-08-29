@@ -58,6 +58,7 @@
     <Compile Include="Abstractions\IMailMessageService.cs" />
     <Compile Include="Abstractions\IMailService.cs" />
     <Compile Include="Models\BaseEmailMessageInfo.cs" />
+    <Compile Include="Models\ErrorInfo.cs" />
     <Compile Include="Models\MailServerInfo.cs" />
     <Compile Include="Services\MailMessageService.cs" />
     <Compile Include="Services\MailService.cs" />

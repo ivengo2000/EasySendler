@@ -8,25 +8,37 @@ namespace BuisenessLogicLayer.Services
 {
     public class MailService : IMailService
     {
-        private readonly MailServerInfo _mailServerInfo;
+        private MailServerInfo _mailServerInfo;
 
-        public MailService(MailServerInfo mailServerInfo)
+        public MailService()
         {
-            this._mailServerInfo = mailServerInfo;
+            
         }
 
-        public void SendMail(MailMessage message)
+        public void SetSmtpSettings(MailServerInfo mailServerInfo)
         {
+            _mailServerInfo = mailServerInfo;
+        }
+
+        public string SendMail(MailMessage message)
+        {
+            if (_mailServerInfo == null)
+            {
+                throw new Exception("MailService: _mailServerInfo is null. Use SetSmtpSettings method before to initialize the _mailServerInfo");
+            }
+
             try
             {
                 using (var smtpClient = CreateSmtpClient(_mailServerInfo))
                 {
                     smtpClient.Send(message);
+                    return "Message has been sent";
                 }
             }
             catch (Exception ex)
             {
                // Log.Error("MailService.SendMail: ", ex);
+                return ex.Message;
             }
         }
 

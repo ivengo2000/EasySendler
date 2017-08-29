@@ -194,6 +194,12 @@
             data: { email: email, name: name, sureName: sureName, templateId: selectedtId, mailSettingsId: selectedmsId },
             url: runUrl,
             success: function (response) {
+                var responseObj = JSON.parse(response);
+                if (responseObj.IsSuccessful) {
+                    
+                } else {
+                    alert(responseObj.ResultMessage);
+                }
                 $runProgress.val(parseInt($runProgress.val(), 10) + 1).trigger("change");
                 if (index < data.length - 1) {
                     sendEmail(data, index + 1);

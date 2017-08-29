@@ -1,9 +1,12 @@
 ﻿using System.Net.Mail;
+using BuisenessLogicLayer.Models;
 
 namespace BuisenessLogicLayer.Abstractions
 {
     public interface IMailService
     {
-        void SendMail(MailMessage message);
+        string SendMail(MailMessage message);
+
+        void SetSmtpSettings(MailServerInfo mailServerInfo);
     }
 }

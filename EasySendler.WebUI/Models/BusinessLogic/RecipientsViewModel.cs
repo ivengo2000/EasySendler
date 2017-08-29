@@ -12,6 +12,7 @@ namespace EasySendler.Models.BusinessLogic
 
         [Required]
         [StringLength(50)]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
