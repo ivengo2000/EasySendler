@@ -48,86 +48,103 @@
     </div>
 </div>
 
-<button id="btnRun" value="Run" class="btn btn-danger btn-lg disabled" data-run-url="@Url.Action("Run", "Delivery")">Run</button>
+<div class="row">
+    
+    <div class="col col-sm-2">
+        <button id="btnRun" value="Run" class="btn btn-danger btn-lg disabled" data-run-url="@Url.Action("Run", "Delivery")">Run</button>
+    </div>
 
-<input type="text" value="0" class="dial" id="runProgress" data-width="200" data-height="200" data-linecap="round" data-angleOffset="-125" data-angleArc="250">
-
-<div id="recipientListDetails" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">List Details</h4>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
+    <div class="col col-sm-6">
+        <h4>Process</h4>
+        <div id="runningProcess"></div>
+    </div>
+    <div class="col col-sm-4 text-center">
+        <h4>Progress</h4>
+        <input type="text" value="0" class="dial" id="runProgress" data-width="200" data-height="200" data-linecap="round" data-angleOffset="-125" data-angleArc="250">
     </div>
 </div>
+    
 
-<div id="templatesList" class="modal  fade" role="dialog" data-templates-list-url="@Url.Action("GetTemplates", "Templates")">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Templates</h4>
-            </div>
-            <div class="modal-body">
+    
 
+    
+
+    <div id="recipientListDetails" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">List Details</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-            </div>
+
         </div>
-
     </div>
-</div>
 
-<script type="text/template" id="recipientListDetailsTemplate">
-    <table class="table text-left">
-        <tbody>
-            <tr><th>Email</th><th>Name</th><th>SureName</th><th></th></tr>
-            <% _.each( items, function(item){ %>
-            <tr>
-                <td><a href="#"><%- item.Email %></a></td>
-                <td><a href="#"><%- item.Name %></a></td>
-                <td><a href="#"><%- item.SureName %></a></td>
-                <td><a class="btn btn-warning btn-xs" href="/Recipients/Details/<%- item.rId %>">Details</a> | <a class="btn btn-info btn-xs" href="/Recipients/Edit/<%- item.rId %>">Edit</a></td>
-            </tr>
-            <% }); %>
-        </tbody>
-    </table>
-</script>
+    <div id="templatesList" class="modal  fade" role="dialog" data-templates-list-url="@Url.Action("GetTemplates", "Templates")">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Templates</h4>
+                </div>
+                <div class="modal-body">
 
-<script type="text/template" id="templatesListTemplate">
-    <div class="row">
-        <% _.each( items, function(item){ %>
-        <div class="col-sm-12 col-xs-12 col-md-4 col-lg-3">
-            <div class="thumbnail bootsnipp-thumb">
-                <a href="/Templates/Details/<%- item.TemplateId %>">
-                    <h5 class="title"><%- item.Name %></h5>
-                </a>
-                <a href="javascript:void(0)" class="template-link-entry template-link" title="<%- item.Description %>" data-selected-template-id="<%- item.TemplateId %>" data-selected-template-name="<%- item.Name %>">
-                   <% if(item.Thumbnail){ %>
-                        <img src="data:image/png;base64,<%- item.Thumbnail %>" class="template-thumbnail" />
-                   <% }else{ %>
-                        <img src="/UploadImages/NoImage.jpg" class="template-thumbnail" />
-                   <% } %>
-                </a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
             </div>
-        </div>
-        <% }); %>
-    </div>
-</script>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/additionaljq")
-    <script type="text/javascript">
-        $(document).ready(function () { new Delivery(); });
+        </div>
+    </div>
+
+    <script type="text/template" id="recipientListDetailsTemplate">
+        <table class="table text-left">
+            <tbody>
+                <tr><th>Email</th><th>Name</th><th>SureName</th><th></th></tr>
+                <% _.each( items, function(item){ %>
+                <tr>
+                    <td><a href="#"><%- item.Email %></a></td>
+                    <td><a href="#"><%- item.Name %></a></td>
+                    <td><a href="#"><%- item.SureName %></a></td>
+                    <td><a class="btn btn-warning btn-xs" href="/Recipients/Details/<%- item.rId %>">Details</a> | <a class="btn btn-info btn-xs" href="/Recipients/Edit/<%- item.rId %>">Edit</a></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
     </script>
-}
+
+    <script type="text/template" id="templatesListTemplate">
+        <div class="row">
+            <% _.each( items, function(item){ %>
+            <div class="col-sm-12 col-xs-12 col-md-4 col-lg-3">
+                <div class="thumbnail bootsnipp-thumb">
+                    <a href="/Templates/Details/<%- item.TemplateId %>">
+                        <h5 class="title"><%- item.Name %></h5>
+                    </a>
+                    <a href="javascript:void(0)" class="template-link-entry template-link" title="<%- item.Description %>" data-selected-template-id="<%- item.TemplateId %>" data-selected-template-name="<%- item.Name %>">
+                        <% if(item.Thumbnail){ %>
+                        <img src="data:image/png;base64,<%- item.Thumbnail %>" class="template-thumbnail" />
+                        <% }else{ %>
+                        <img src="/UploadImages/NoImage.jpg" class="template-thumbnail" />
+                        <% } %>
+                    </a>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </script>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/additionaljq")
+        <script type="text/javascript">
+            $(document).ready(function () { new Delivery(); });
+        </script>
+    }

@@ -19,6 +19,7 @@
     var $txtTemplates = $("#txtTemplates");
     var templateOpenRecipientList = $("#recipientListDetailsTemplate").html();
     var templatesListTemplate = $("#templatesListTemplate").html();
+    var $runningProcess = $("#runningProcess");
 
     $ddlRecipientLists.select2({
         minimumInputLength: 0,
@@ -166,6 +167,8 @@
         if ($(this).hasClass("disabled")) {
             event.stopPropagation();
         } else {
+            $runningProcess.empty();
+            $runProgress.val(0).trigger("change");
             $.ajax({
                 type: "GET",
                 url: recipientsDetailsUrl,
@@ -174,6 +177,7 @@
                 traditional: true,
                 success: function (rawData) {
                     var data = JSON.parse(rawData);
+                    $runningProcess.append("<div class='alert alert-info' role='alert'>Delivery has been started at " + new Date().toISOString() + "</div>");
                     sendEmail(data, 0); 
                 },
                 error: getAjaxError
@@ -195,14 +199,16 @@
             url: runUrl,
             success: function (response) {
                 var responseObj = JSON.parse(response);
-                if (responseObj.IsSuccessful) {
-                    
-                } else {
-                    alert(responseObj.ResultMessage);
-                }
+                var alertTypeClass = responseObj.IsSuccessful ? "alert-success" : "alert-danger";
+
+                $runningProcess.append("<div class='alert " + alertTypeClass + "' role='alert'>" + responseObj.ResultMessage + " to <span class='badge'>" + email + "</span></div>");
+
                 $runProgress.val(parseInt($runProgress.val(), 10) + 1).trigger("change");
                 if (index < data.length - 1) {
                     sendEmail(data, index + 1);
+                } else {
+                    $runningProcess.append("<div class='alert alert-info' role='alert'>Delivery has been finished at " + new Date().toISOString() + "</div>");
+                    $btnRun.removeClass("active").addClass("disabled");
                 }
             },
             error: getAjaxError
@@ -222,7 +228,7 @@
             var link = e.currentTarget;
             selectedTemplateId = link.dataset.selectedTemplateId;
             $txtTemplates.val(link.dataset.selectedTemplateName);
-            $modalTemplatesList.modal('hide');
+            $modalTemplatesList.modal("hide");
             checkConditionsToRun();
         });
     }
