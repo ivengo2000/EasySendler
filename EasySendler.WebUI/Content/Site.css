@@ -1,6 +1,12 @@
-﻿body {
+﻿html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    margin-bottom: 150px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,17 +28,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
 .select2-search__field {
     max-width: none;
 }
+
 .ddl-select2-source,
 .bootstrap-duallistbox-container select.form-control {
     width: 150%;
     max-width: 100%;
 }
+
 .select2-results .option-item-name, .select2-selection .option-item-name {
-    font-weight: bold;   
+    font-weight: bold;
 }
+
 .select2-results .option-item-descr-title, .select2-selection .option-item-descr-title {
     font-weight: normal;
     font-size: 80%;
@@ -40,14 +50,17 @@ textarea {
     margin: 0 10px;
     color: grey;
 }
+
 .select2,
 .select2-container,
 .select2-container--default {
     max-width: 100%;
 }
-.select2-container .select2-selection--single {
-    height: auto;
-}
+
+    .select2-container .select2-selection--single {
+        height: auto;
+    }
+
 .template-link-entry {
     text-decoration: none;
     display: block;
@@ -57,27 +70,32 @@ textarea {
     transition: all 0.3s;
     margin: 10px 10px 20px;
 }
-/*.template-link-entry .title {
+    /*.template-link-entry .title {
     padding: 15px 0 10px;
     border-bottom: 1px solid #ddd;
 }*/
-.template-link-entry:hover {
-    text-decoration: none;
-    opacity: 1;
-}
+    .template-link-entry:hover {
+        text-decoration: none;
+        opacity: 1;
+    }
+
 .mt-30 {
     margin-top: 30px;
 }
+
 .mtb-30 {
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
 .modal-footer {
-    border-top: none; 
+    border-top: none;
 }
+
 .modal-header {
     border-bottom: none;
 }
+
 .igTemplates input[type=text] {
     min-width: 100%;
     background-color: #fff;
@@ -87,6 +105,7 @@ textarea {
 .bootsnipp-thumb {
     margin-bottom: 20px;
 }
+
 .thumbnail {
     display: block;
     padding: 4px;
@@ -100,30 +119,38 @@ textarea {
     transition: border .2s ease-in-out;
     text-align: center;
 }
+
 .group-span-filestyle {
     width: auto;
 }
+
 .knob-legend {
-    width: 200px;    
+    width: 200px;
     display: inline-block;
 }
-.knob-legend ul {
-    text-align: left;
-    list-style-type: none;
-}
-.knob-legend > ul > li > span {
-    margin-right: 10px
-}
-.knob-legend > ul > li > span.gray {
-    background-color: #EDEDED;
-}
-.knob-legend > ul > li > span.blue {
-    background-color: #87ceeb;
-}
+
+    .knob-legend ul {
+        text-align: left;
+        list-style-type: none;
+    }
+
+    .knob-legend > ul > li > span {
+        margin-right: 10px;
+    }
+
+        .knob-legend > ul > li > span.gray {
+            background-color: #EDEDED;
+        }
+
+        .knob-legend > ul > li > span.blue {
+            background-color: #87ceeb;
+        }
+
 #runningProcess {
     height: 250px;
     overflow-y: scroll;
 }
+
 
 .inverse-drowdown {
     /*opacity: 0.8;*/
@@ -131,8 +158,95 @@ textarea {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
-.inverse-drowdown li a {
-    color: #9d9d9d;
-    margin-top: 5px;
-    margin-bottom: 5px;
+
+    .inverse-drowdown li a {
+        color: #9d9d9d;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+
+
+.btn_upp {
+    padding-bottom: 100px;
+    padding-right: 150px;
+}
+
+
+#mytext h1,
+#mytext p {
+    display: inline-block;
+    text-align: center;
+}
+
+.glyphicon-big {
+    font-size: 124px;
+}
+
+.card {
+    padding: 10px;
+    margin: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+    .card .description {
+        min-height: 100px;
+    }
+
+.thumbnail.about {
+    width: 1050px;
+    padding-bottom: 150px;
+    margin-top: 50px;
+}
+
+.footer {
+    padding: 10px;
+}
+
+    .footer a, .footer h5 {
+        color: #9d9d9d;
+    }
+
+        .footer a:hover, .footer a:focus {
+            color: white;
+            text-decoration: none;
+        }
+
+
+.my_panel > .panel-body {
+  padding: 0px;
+  margin-bottom: 50px
+}
+
+.my_panel > .panel-footer {
+  text-align: center;
+}
+.panel-title {
+    margin-top: -60px;
+}
+
+.size {
+    width: 100px;
+    height: 100px;
+   
+}
+.padding {
+    padding: 0.1px;
+  
+}
+.invisible-border {
+    display: block;
+    border: 5px solid rgb(255, 255, 255);
+    border-radius: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -60px;
+    margin-bottom: 100px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+
+}
+
+.invisible-border:hover {
+    box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+    cursor: pointer;
 }

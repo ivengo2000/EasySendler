@@ -237,6 +237,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\EasySendler.pubxml" />
+    <Content Include="img\3256021492_5af2b3fa98_b.jpg" />
+    <Content Include="img\NTiSHicLAWo.jpg" />
     <Content Include="Scripts\bootstrap-filestyle.min.js" />
     <Content Include="Scripts\bootstrap2-toggle.min.js.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />

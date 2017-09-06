@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Activities.Expressions
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -33,23 +34,36 @@
                     </li>
 
                     <li>@Html.ActionLink("MailSettings", "Index", "MailSettings")</li>
-                    
+
                     <li>@Html.ActionLink("Delivery", "Index", "Delivery")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                    @*@Html.Partial("_LoginPartial")*@
+                @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+
+    <div class="container body-content ">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    </div>
+
+    <div class="navbar-inverse navbar-fixed-bottom">
+        <div class="container footer">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("Templates", "Index", "Templates")</div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("MailSettings", "Index", "MailSettings")</div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("Delivery", "Index", "Delivery")</div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("Recipients", "Index", "Recipients")</div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("Recipient Lists", "Index", "RecipientLists")</div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("Configure Recipient Lists", "ConfigureList", "RecipientLists")</div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("Home", "Index", "Home")</div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("About", "About", "Home")</div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">@Html.ActionLink("Contact", "Contact", "Home")</div>
+            </div>
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
