@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<BuisenessLogicLayer.Recipient>
 
+
 @{
     ViewBag.Title = "Recipients";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <h2>Recipients</h2>
@@ -37,6 +39,12 @@
                 @Html.DisplayFor(modelItem => item.SureName)
             </td>
             <td>
+                <button id="btnedit" class="btn btn-warning btn-xs" type="button" data-toggle="modal" data-target="#recipients"
+                        data-ajax-url="@Url.Action("GetDetails", "Recipients")" data-id="@item.RecipientId">Edit</button>
+                
+
+
+
                 @Html.ActionLink("Edit", "Edit", new {id = item.RecipientId}, new {@class = "btn btn-warning btn-xs"}) |
                 @Html.ActionLink("Details", "Details", new {id = item.RecipientId}, new {@class = "btn btn-info btn-xs"}) |
                 @Html.ActionLink("Delete", "Delete", new {id = item.RecipientId}, new {@class = "btn btn-danger btn-xs"})
@@ -45,3 +53,47 @@
     }
 
 </table>
+
+<div class="modal" id="recipients" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+</div> 
+<script type="text/template" id="recipientDetailsTemplate">
+    <table class="table text-left">
+        <tbody>
+            <tr><th>Email</th><th>Name</th><th>SureName</th><th></th></tr>
+            <% _.each( items, function(item){ %>
+            <tr>
+                <td><a href="#"><%- item.Email %></a></td>
+                <td><a href="#"><%- item.Name %></a></td>
+                <td><a href="#"><%- item.SureName %></a></td>
+                <td><a class="btn btn-warning btn-xs" href="/Recipients/Details/<%- item.rId %>">Details</a> | <a class="btn btn-info btn-xs" href="/Recipients/Edit/<%- item.rId %>">Edit</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/additionaljq")
+    <script type="text/javascript">
+        $(document).ready(function () { new Recipients() });
+    </script>
+}
