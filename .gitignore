@@ -78,3 +78,4 @@ _[Ss]cripts
 .vs/config/applicationhost.config
 /MySMTPProgect.mdf
 /MySMTPProgect_log.ldf
+.vs/config/applicationhost.config

@@ -39,8 +39,10 @@
                 @Html.DisplayFor(modelItem => item.SureName)
             </td>
             <td>
-                <button id="btnedit" class="btn btn-warning btn-xs" type="button" data-toggle="modal" data-target="#recipients"
-                        data-ajax-url="@Url.Action("GetDetails", "Recipients")" data-id="@item.RecipientId">Edit</button>
+                @*<button id="btnedit" class="btn btn-warning btn-xs" type="button" data-toggle="modal" data-target="#recipients" data-ajax-url="@Url.Action("GetDetails", "Recipients")" data-id="@item.RecipientId">Edit</button>*@
+                <button id="btnedit" class="btn btn-warning btn-xs" type="button" 
+                        data-toggle="modal" data-target="#recipients" 
+                        data-ajax-url="@Url.Action("GetEdit", "Recipients")" data-id="@item.RecipientId">Edit</button>
                 
 
 
@@ -65,9 +67,9 @@
 
             </div>
 
-            <div class="modal-footer">
+            @*<div class="modal-footer">
                 <button class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
+            </div>*@
 
         </div>
 

@@ -12,11 +12,12 @@
             type: "GET",
             url: clickedBtn.dataset.ajaxUrl,
             data: { id: clickedBtn.dataset.id },
-            dataType: "json",
+           // dataType: "json",
             traditional: true,
             success: function (rawData) {
-                var data = JSON.parse(rawData);
-                renderTemplate($modalBody, templateOpenRecipientList, { items: data });
+                $modalBody.html(rawData);
+                //var data = JSON.parse(rawData);
+                //renderTemplate($modalBody, templateOpenRecipientList, { items: data });
             },
             error: getAjaxError
         });
