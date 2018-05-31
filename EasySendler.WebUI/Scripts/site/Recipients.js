@@ -1,23 +1,31 @@
 ﻿function Recipients() {
     "use strict";
 
-    var $modalOpenPecipients = $("#recipients");
+    var $modalOpenPecipients = $("#modalRecipient");
     var templateOpenRecipientList = $("#recipientDetailsTemplate").html();
 
     $modalOpenPecipients.on("shown.bs.modal", function (e) {
         var $modalBody = $modalOpenPecipients.find("div.modal-body");
+        var $modalTitle = $modalOpenPecipients.find("div.modal-header .modal-title");
         $modalBody.empty();
-        var clickedBtn = e.relatedTarget;       
+        var clickedBtn = e.relatedTarget;
+        var actionType = clickedBtn.dataset.actionType;
         $.ajax({
             type: "GET",
             url: clickedBtn.dataset.ajaxUrl,
             data: { id: clickedBtn.dataset.id },
-           // dataType: "json",
+            dataType: actionType === "Edit" ? "html" : "json",
             traditional: true,
             success: function (rawData) {
-                $modalBody.html(rawData);
-                //var data = JSON.parse(rawData);
-                //renderTemplate($modalBody, templateOpenRecipientList, { items: data });
+                
+                $modalTitle.text(actionType);
+                switch (actionType) {
+                    case "Edit":
+                        $modalBody.html(rawData);
+                    case "Details":
+                        renderTemplate($modalBody, templateOpenRecipientList, { item: JSON.parse(rawData) });
+                    default:
+                }
             },
             error: getAjaxError
         });
