@@ -7,8 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using BuisenessLogicLayer;
+using EasySendler.Extensions;
 using EasySendler.Models.BusinessLogic;
+using Newtonsoft.Json;
 
 namespace EasySendler.Controllers
 {
@@ -46,6 +49,25 @@ namespace EasySendler.Controllers
                 return HttpNotFound();
             }
             return View(recipient);
+        }
+
+        [HttpGet]
+        [JsonExceptionFilter]
+        public JsonResult GetDetails(string id)
+        {
+            int rlId;
+            if (!int.TryParse(id, out rlId))
+            {
+                throw new JsonException("RecipientsController.GetDetails: id must be a number.");
+            }
+
+            var result = db.Recipients.Where(x => x.RecipientId == rlId).AsQueryable().ProjectTo<RecipientsViewModel>().FirstOrDefault();
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         // GET: Recipients/Create
