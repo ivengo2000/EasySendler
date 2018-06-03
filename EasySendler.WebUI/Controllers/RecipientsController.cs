@@ -148,6 +148,28 @@ namespace EasySendler.Controllers
             return View(recipientsViewModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetEdit([Bind(Include = "rId,Email,Name,SureName")] RecipientsViewModel recipientsViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Recipient recipient = db.Recipients.Find(recipientsViewModel.rId);
+                if (recipient != null)
+                {
+                    recipient.Email = recipientsViewModel.Email;
+                    recipient.Name = recipientsViewModel.Name;
+                    recipient.SureName = recipientsViewModel.SureName;
+
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return PartialView(recipientsViewModel);
+        }
+
         // GET: Recipients/Delete/5
         public ActionResult Delete(int? id)
         {

@@ -1,6 +1,15 @@
 ﻿@model EasySendler.Models.BusinessLogic.RecipientsViewModel
+@{
+    var options = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        Url = Url.Action("GetEdit", "Recipients"),
+        UpdateTargetId = "modalRecipient",
+        InsertionMode = InsertionMode.Replace
+    };
+}
 
-@using (Html.BeginForm("Edit", "Recipients"))
+@using (Ajax.BeginForm("GetEdit", "Recipients", options))
 {
     @Html.AntiForgeryToken()
 

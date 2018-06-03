@@ -22,9 +22,12 @@
                 switch (actionType) {
                     case "Edit":
                         $modalBody.html(rawData);
+                        break;
                     case "Details":
                         renderTemplate($modalBody, templateOpenRecipientList, { item: JSON.parse(rawData) });
+                        break;
                     default:
+                        break;
                 }
             },
             error: getAjaxError
