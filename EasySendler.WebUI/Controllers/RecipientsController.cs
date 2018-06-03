@@ -70,21 +70,6 @@ namespace EasySendler.Controllers
             };
         }
 
-        [HttpGet]
-        [JsonExceptionFilter]
-        public ActionResult GetEdit(string id)
-        {
-            int rlId;
-            if (!int.TryParse(id, out rlId))
-            {
-                throw new JsonException("RecipientsController.GetDetails: id must be a number.");
-            }
-
-            var result = db.Recipients.Where(x => x.RecipientId == rlId).AsQueryable().ProjectTo<RecipientsViewModel>().FirstOrDefault();
-
-            return PartialView(Mapper.Map<RecipientsViewModel>(result));
-        }
-
         // GET: Recipients/Create
         public ActionResult Create()
         {
@@ -148,6 +133,21 @@ namespace EasySendler.Controllers
             return View(recipientsViewModel);
         }
 
+        [HttpGet]
+        [JsonExceptionFilter]
+        public ActionResult GetEdit(string id)
+        {
+            int rlId;
+            if (!int.TryParse(id, out rlId))
+            {
+                throw new JsonException("RecipientsController.GetDetails: id must be a number.");
+            }
+
+            var result = db.Recipients.Where(x => x.RecipientId == rlId).AsQueryable().ProjectTo<RecipientsViewModel>().FirstOrDefault();
+
+            return PartialView(Mapper.Map<RecipientsViewModel>(result));
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GetEdit([Bind(Include = "rId,Email,Name,SureName")] RecipientsViewModel recipientsViewModel)
@@ -163,8 +163,6 @@ namespace EasySendler.Controllers
 
                     db.SaveChanges();
                 }
-
-                return RedirectToAction("Index");
             }
 
             return PartialView(recipientsViewModel);

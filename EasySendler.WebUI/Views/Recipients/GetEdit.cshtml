@@ -1,19 +1,24 @@
 ﻿@model EasySendler.Models.BusinessLogic.RecipientsViewModel
 @{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+
     var options = new AjaxOptions
     {
         HttpMethod = "POST",
-        Url = Url.Action("GetEdit", "Recipients"),
-        UpdateTargetId = "modalRecipient",
-        InsertionMode = InsertionMode.Replace
+        UpdateTargetId = "getEditFormContainer",
+        InsertionMode = InsertionMode.Replace,
+        OnSuccess = "OnSuccess"
     };
 }
-
-@using (Ajax.BeginForm("GetEdit", "Recipients", options))
+<script type="text/javascript">
+    function OnSuccess() { if ("@ViewData.ModelState.IsValid" === "True") { window.location.reload(); }}
+</script>
+@using (Ajax.BeginForm("GetEdit", "Recipients", null, options, new { id = "getEditForm", @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal" id="getEditFormContainer">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.rId)
 

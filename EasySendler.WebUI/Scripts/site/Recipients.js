@@ -22,6 +22,8 @@
                 switch (actionType) {
                     case "Edit":
                         $modalBody.html(rawData);
+                        var $form = $modalBody.find("#getEditForm");
+                        $.validator.unobtrusive.parse($form);
                         break;
                     case "Details":
                         renderTemplate($modalBody, templateOpenRecipientList, { item: JSON.parse(rawData) });
