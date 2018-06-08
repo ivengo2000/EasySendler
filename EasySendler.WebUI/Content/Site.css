@@ -250,6 +250,9 @@ textarea {
     cursor: pointer;
 }
 
+.modal .modal-body {
+    padding-top: 0;
+}
 .modal .form-group {
     margin-bottom: 25px;
 }
