@@ -2,7 +2,8 @@
     "use strict";
 
     var $modalOpenPecipients = $("#modalRecipient");
-    var templateOpenRecipientList = $("#recipientDetailsTemplate").html();
+    var templateOpenRecipient = $("#recipientDetailsTemplate").html();
+    var templateDeleteRecipient = $("#recipientDeleteTemplate").html();
 
     $modalOpenPecipients.on("shown.bs.modal", function (e) {
         var $modalBody = $modalOpenPecipients.find("div.modal-body");
@@ -10,6 +11,7 @@
         $modalBody.empty();
         var clickedBtn = e.relatedTarget;
         var actionType = clickedBtn.dataset.actionType;
+        var modalTitle = clickedBtn.dataset.modalTitle;
         $.ajax({
             type: "GET",
             url: clickedBtn.dataset.ajaxUrl,
@@ -18,7 +20,7 @@
             traditional: true,
             success: function (rawData) {
                 
-                $modalTitle.text(actionType);
+                $modalTitle.text(modalTitle);
                 switch (actionType) {
                     case "Edit":
                         $modalBody.html(rawData);
@@ -26,7 +28,10 @@
                         $.validator.unobtrusive.parse($form);
                         break;
                     case "Details":
-                        renderTemplate($modalBody, templateOpenRecipientList, { item: JSON.parse(rawData) });
+                        renderTemplate($modalBody, templateOpenRecipient, { item: JSON.parse(rawData) });
+                        break;
+                    case "Delete":
+                        renderTemplate($modalBody, templateDeleteRecipient, { item: JSON.parse(rawData) });
                         break;
                     default:
                         break;
@@ -42,7 +47,7 @@
             var json = $.parseJSON(xhr.responseText);
             alert(json.errorMessage);
         } catch (e) {
-            alert('something bad happened');
+            alert("something bad happened");
         }
     }
 

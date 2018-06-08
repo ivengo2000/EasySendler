@@ -101,7 +101,6 @@ textarea {
     background-color: #fff;
 }
 
-
 .bootsnipp-thumb {
     margin-bottom: 20px;
 }
@@ -249,4 +248,17 @@ textarea {
 .invisible-border:hover {
     box-shadow: 0 5px 5px rgba(0,0,0,0.3);
     cursor: pointer;
+}
+
+.modal .form-group {
+    margin-bottom: 25px;
+}
+.modal .form-group.form-actions {
+    margin-bottom: 5px;
+}
+.modal .form-group .form-control.text-box {
+    min-width: 100%;
+}
+.modal .form-group .text-danger {
+    position: absolute;
 }

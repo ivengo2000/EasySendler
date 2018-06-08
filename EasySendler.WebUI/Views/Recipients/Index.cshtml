@@ -42,15 +42,19 @@
                 
                 <button class="btn btn-warning btn-xs" type="button" 
                         data-toggle="modal" data-target="#modalRecipient" data-ajax-url="@Url.Action("GetEdit", "Recipients")" 
-                        data-id="@item.RecipientId" data-action-type="Edit">Edit</button>
+                        data-id="@item.RecipientId" data-action-type="Edit" data-modal-title="Recipients: Edit form">Edit</button>
              
                 @Html.ActionLink("Edit", "Edit", new {id = item.RecipientId}, new {@class = "btn btn-warning btn-xs"}) |
                 
                 <button class="btn btn-info btn-xs" type="button" data-toggle="modal" 
                         data-target="#modalRecipient" data-ajax-url="@Url.Action("GetDetails", "Recipients")" 
-                        data-id="@item.RecipientId" data-action-type="Details">Details</button>
+                        data-id="@item.RecipientId" data-action-type="Details" data-modal-title="Recipients: Details form">Details</button>
 
                 @Html.ActionLink("Details", "Details", new {id = item.RecipientId}, new {@class = "btn btn-info btn-xs"}) |
+                
+                <button class="btn btn btn-danger btn-xs" type="button" data-toggle="modal" 
+                        data-target="#modalRecipient" data-ajax-url="@Url.Action("GetDetails", "Recipients")" 
+                        data-id="@item.RecipientId" data-action-type="Delete" data-modal-title="Recipients: Delete confirmation form">Delete</button>
 
                 @Html.ActionLink("Delete", "Delete", new {id = item.RecipientId}, new {@class = "btn btn-danger btn-xs"})
             </td>
@@ -64,23 +68,41 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title"></h4>
             </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
+            <div class="modal-body"></div>
         </div>
     </div>
 </div> 
 <script type="text/template" id="recipientDetailsTemplate">
-    <dl class="dl-horizontal">
-        <dt>Email</dt><dd><%- item.Email %></dd>
-        <dt>Name</dt><dd><%- item.Name %></dd>
-        <dt>SureName</dt><dd><%- item.SureName %></dd>
-    </dl>
+    <div class="form-horizontal">
+        <dl class="dl-horizontal">
+            <dt>Email</dt><dd><%- item.Email %></dd>
+            <dt>Name</dt><dd><%- item.Name %></dd>
+            <dt>SureName</dt><dd><%- item.SureName %></dd>
+        </dl>
+        <div class="form-group form-actions">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="recipientDeleteTemplate">
+    <div class="form-horizontal">
+        <div class="alert alert-info text-center" role="alert">Do you really want to delete following Recipient?</div>
+        <dl class="dl-horizontal">
+            <dt>Email</dt>
+            <dd><%- item.Email %></dd>
+            <dt>Name</dt>
+            <dd><%- item.Name %></dd>
+        </dl>
+        <div class="form-group form-actions">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
 </script>
 
 @section Scripts {
