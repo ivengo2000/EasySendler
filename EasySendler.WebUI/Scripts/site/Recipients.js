@@ -55,5 +55,4 @@
         var tmpl = _.template($template);
         $target.html(tmpl(data));
     }
-
 }

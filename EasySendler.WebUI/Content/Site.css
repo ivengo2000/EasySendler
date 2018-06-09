@@ -242,7 +242,6 @@ textarea {
     margin-top: -60px;
     margin-bottom: 100px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-
 }
 
 .invisible-border:hover {
@@ -264,4 +263,7 @@ textarea {
 }
 .modal .form-group .text-danger {
     position: absolute;
+}
+.modal .modal-body .delete-btn-form {
+    display: inline-block;
 }
