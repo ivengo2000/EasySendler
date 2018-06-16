@@ -1,40 +1,90 @@
 ﻿@model IEnumerable<EasySendler.Models.BusinessLogic.RecipientListViewModel>
-
 @{
     ViewBag.Title = "Recipient Lists";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Recipient Lists</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
+<p>   
+    <button class="btn btn-success" type="button" 
+            data-toggle="modal" data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetEdit", "RecipientLists")" 
+            data-id="0" data-action-type="Edit" data-modal-title="Recipient Lists: Create New form">Create New</button>
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
+        <th>@Html.DisplayNameFor(model => model.Name)</th>
+        <th>@Html.DisplayNameFor(model => model.Description)</th>
         <th></th>
     </tr>
-
 @foreach (var item in Model) {
     <tr>
+        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+        <td>@Html.DisplayFor(modelItem => item.Description)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.rlId }, new { @class = "btn btn-warning btn-xs" }) |
-            @Html.ActionLink("Details", "Details", new { id=item.rlId }, new { @class = "btn btn-info btn-xs" }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.rlId }, new {@class = "btn btn-danger btn-xs" } )
+            
+            <button class="btn btn-warning btn-xs" type="button"
+                    data-toggle="modal" data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetEdit", "RecipientLists")"
+                    data-id="@item.rlId" data-action-type="Edit" data-modal-title="Recipient Lists: Edit form">Edit</button>&nbsp;|
+            <button class="btn btn-info btn-xs" type="button" data-toggle="modal" 
+                    data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDetails", "RecipientLists")" 
+                    data-id="@item.rlId" data-action-type="Details" data-modal-title="Recipient Lists: Details form">Details</button>&nbsp;|
+            <button class="btn btn btn-danger btn-xs" type="button" data-toggle="modal"
+                    data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDetails", "RecipientLists")"
+                    data-id="@item.rlId" data-action-type="Delete" data-modal-title="Recipient Lists: Delete confirmation form">Delete</button>
         </td>
     </tr>
 }
-
 </table>
+
+<div class="modal" id="modalRecipientList" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/template" id="recipientListDetailsTemplate">
+    <div class="form-horizontal">
+        <dl class="dl-horizontal">
+            <dt>Name</dt><dd><%- item.Name %></dd>
+            <dt>Description</dt><dd><%- item.Description %></dd>
+        </dl>
+        <div class="form-group form-actions">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="recipientListDeleteTemplate">
+    <div class="form-horizontal">
+        <div class="alert alert-info text-center" role="alert">Are you sure you want to delete following Recipient List?</div>
+        <dl class="dl-horizontal">
+            <dt>Name</dt><dd><%- item.Name %></dd>
+            <dt>Description</dt><dd><%- item.Description %></dd>
+        </dl>
+        <div class="form-group form-actions">
+            <div class="col-md-12 text-center">
+                @using (Html.BeginForm("Delete", "RecipientLists", FormMethod.Post, new { @class = "delete-btn-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input id="id" name="id" type="hidden" value="@Html.Raw("<%= item.rlId %>")" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                }
+                &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/additionaljq")
+    <script type="text/javascript">
+        $(document).ready(function () { new RecipientLists();});
+    </script>
+}

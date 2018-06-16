@@ -7,11 +7,11 @@ namespace EasySendler.Models.BusinessLogic
         public int rlId { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(150)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(500)]
         public string Description { get; set; }
     }
 }

@@ -21,7 +21,6 @@
     <div class="form-horizontal" id="getEditFormContainer">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.rId)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -29,7 +28,6 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -37,7 +35,6 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.SureName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -45,7 +42,6 @@
                 @Html.ValidationMessageFor(model => model.SureName, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group form-actions">
             <div class="col-md-12 text-center">
                 <input type="submit" value="Save" class="btn btn-success" />&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" data-dismiss="modal">Close</button>

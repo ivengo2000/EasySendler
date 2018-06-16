@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -23,6 +21,7 @@ namespace EasySendler.Controllers
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<RecipientList, RecipientListViewModel>();
+                cfg.CreateMap<RecipientListViewModel, RecipientList>();
                 cfg.CreateMap<RecipientList, DropDownViewModel>()
                     .ForMember(dest => dest.Id, y => y.MapFrom(source => source.rlId))
                     .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Name + "|" + source.Description));
@@ -41,90 +40,68 @@ namespace EasySendler.Controllers
             return View(_db.RecipientLists.ProjectTo<RecipientListViewModel>().ToList());
         }
 
-        // GET: RecipientLists/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        [JsonExceptionFilter]
+        public JsonResult GetDetails(string id)
         {
-            if (id == null)
+            int rlId;
+            if (!int.TryParse(id, out rlId))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new JsonException("RecipientListsController.GetDetails: id must be a number.");
             }
 
-            var recipientList = Mapper.Map<RecipientListViewModel>(_db.RecipientLists.Find(id));
-            if (recipientList == null)
+            var result = Mapper.Map<RecipientListViewModel>(_db.RecipientLists.Find(rlId));
+
+            return new JsonResult
             {
-                return HttpNotFound();
-            }
-            return View(recipientList);
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
-        // GET: RecipientLists/Create
-        public ActionResult Create()
+        [HttpGet]
+        [JsonExceptionFilter]
+        public ActionResult GetEdit(string id)
         {
-            return View();
+            int rlId;
+            if (!int.TryParse(id, out rlId))
+            {
+                throw new JsonException("RecipientListsController.GetDetails: id must be a number.");
+            }
+
+            var result = rlId == 0
+                ? new RecipientListViewModel { rlId = 0, Name = string.Empty, Description = string.Empty }
+                : _db.RecipientLists.Where(x => x.rlId == rlId).AsQueryable().ProjectTo<RecipientListViewModel>().FirstOrDefault();
+
+            return PartialView(result);
         }
 
-        // POST: RecipientLists/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "rlId,Name,Description")] RecipientList recipientList)
+        public ActionResult GetEdit([Bind(Include = "rlId,Name,Description")] RecipientListViewModel recipientListViewModel)
         {
             if (ModelState.IsValid)
             {
-                _db.RecipientLists.Add(recipientList);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                if (recipientListViewModel.rlId == 0)
+                {
+                    _db.RecipientLists.Add(Mapper.Map<RecipientList>(recipientListViewModel));
+
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    RecipientList recipientList = _db.RecipientLists.Find(recipientListViewModel.rlId);
+                    if (recipientList != null)
+                    {
+                        recipientList.Name = recipientListViewModel.Name;
+                        recipientList.Description = recipientListViewModel.Description;
+
+                        _db.SaveChanges();
+                    }
+                }
             }
 
-            return View(Mapper.Map<RecipientListViewModel>(recipientList));
-        }
-
-        // GET: RecipientLists/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var recipientList = Mapper.Map<RecipientListViewModel>(_db.RecipientLists.Find(id));
-            if (recipientList == null)
-            {
-                return HttpNotFound();
-            }
-            return View(recipientList);
-        }
-
-        // POST: RecipientLists/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "rlId,Name,Description")] RecipientList recipientList)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Entry(recipientList).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(Mapper.Map<RecipientListViewModel>(recipientList));
-        }
-
-        // GET: RecipientLists/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var recipientList = Mapper.Map<RecipientListViewModel>(_db.RecipientLists.Find(id));
-            if (recipientList == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(recipientList);
+            return PartialView(recipientListViewModel);
         }
 
         // POST: RecipientLists/Delete/5
@@ -136,9 +113,10 @@ namespace EasySendler.Controllers
             if (recipientList != null)
             {
                 _db.RecipientLists.Remove(recipientList);
+
                 _db.SaveChanges();
             }
-            
+
             return RedirectToAction("Index");
         }
 
