@@ -249,6 +249,13 @@ textarea {
     cursor: pointer;
 }
 
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 600px;
+        margin: 80px auto;
+    } 
+} 
+
 .modal .modal-body {
     padding-top: 0;
 }

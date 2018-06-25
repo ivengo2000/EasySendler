@@ -19,8 +19,7 @@
     <tr>
         <td>@Html.DisplayFor(modelItem => item.Name)</td>
         <td>@Html.DisplayFor(modelItem => item.Description)</td>
-        <td>
-            
+        <td>       
             <button class="btn btn-warning btn-xs" type="button"
                     data-toggle="modal" data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetEdit", "RecipientLists")"
                     data-id="@item.rlId" data-action-type="Edit" data-modal-title="Recipient Lists: Edit form">Edit</button>&nbsp;|

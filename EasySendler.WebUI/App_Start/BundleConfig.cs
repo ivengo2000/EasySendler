@@ -24,7 +24,8 @@ namespace EasySendler
                         "~/Scripts/site/ConfigureRecipientList.js",
                         "~/Scripts/site/Delivery.js",
                         "~/Scripts/site/Recipients.js",
-                        "~/Scripts/site/RecipientLists.js"));
+                        "~/Scripts/site/RecipientLists.js",
+                        "~/Scripts/site/MailSettings.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
                         "~/Scripts/tinymce/tinymce.min.js",

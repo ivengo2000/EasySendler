@@ -15,7 +15,7 @@ namespace EasySendler.Controllers
 {
     public class MailSettingsController : Controller
     {
-        private MySmtpEntities db = new MySmtpEntities();
+        private readonly MySmtpEntities _db = new MySmtpEntities();
 
         public MailSettingsController()
         {
@@ -31,7 +31,7 @@ namespace EasySendler.Controllers
         // GET: MailSettings
         public ActionResult Index()
         {
-            return View(db.MailSettings.ProjectTo<MailSettingViewModel>().ToList());
+            return View(_db.MailSettings.ProjectTo<MailSettingViewModel>().ToList());
         }
 
         [HttpGet]
@@ -41,13 +41,13 @@ namespace EasySendler.Controllers
             List<DropDownViewModel> results;
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                results = db.MailSettings.OrderBy(x => x.MailSettingsId)
-                    .Skip((pageNum - 1) * pageSize).Take(pageSize)
-                    .ProjectTo<DropDownViewModel>().ToList();
+                    results = _db.MailSettings.OrderBy(x => x.MailSettingsId)
+                        .Skip((pageNum - 1) * pageSize).Take(pageSize)
+                        .ProjectTo<DropDownViewModel>().ToList();
             }
             else
             {
-                results = db.MailSettings.Where(x => x.Email.Contains(searchTerm))
+                results = _db.MailSettings.Where(x => x.Email.Contains(searchTerm))
                     .OrderBy(x => x.MailSettingsId).Skip((pageNum - 1) * pageSize).Take(pageSize)
                     .ProjectTo<DropDownViewModel>().ToList();
             }
@@ -55,7 +55,7 @@ namespace EasySendler.Controllers
             var result = new DropDownPagedViewModel
             {
                 Results = results,
-                Total = db.MailSettings.Count()
+                Total = _db.MailSettings.Count()
             };
 
             return new JsonResult
@@ -72,7 +72,7 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var mailSetting = Mapper.Map<MailSettingViewModel>(db.MailSettings.Find(id));
+            var mailSetting = Mapper.Map<MailSettingViewModel>(_db.MailSettings.Find(id));
             if (mailSetting == null)
             {
                 return HttpNotFound();
@@ -95,8 +95,8 @@ namespace EasySendler.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.MailSettings.Add(mailSetting);
-                db.SaveChanges();
+                _db.MailSettings.Add(mailSetting);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -110,7 +110,7 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var mailSetting = Mapper.Map<MailSettingViewModel>(db.MailSettings.Find(id));
+            var mailSetting = Mapper.Map<MailSettingViewModel>(_db.MailSettings.Find(id));
             if (mailSetting == null)
             {
                 return HttpNotFound();
@@ -127,8 +127,8 @@ namespace EasySendler.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(mailSetting).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(mailSetting).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(Mapper.Map<MailSettingViewModel>(mailSetting));
@@ -141,7 +141,7 @@ namespace EasySendler.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var mailSetting = Mapper.Map<MailSettingViewModel>(db.MailSettings.Find(id));
+            var mailSetting = Mapper.Map<MailSettingViewModel>(_db.MailSettings.Find(id));
             if (mailSetting == null)
             {
                 return HttpNotFound();
@@ -155,22 +155,114 @@ namespace EasySendler.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MailSetting mailSetting = db.MailSettings.Find(id);
+            MailSetting mailSetting = _db.MailSettings.Find(id);
             if (mailSetting != null)
             {
-                db.MailSettings.Remove(mailSetting);
-                db.SaveChanges();
+                _db.MailSettings.Remove(mailSetting);
+                _db.SaveChanges();
             }
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult GetEdit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        [HttpGet]
+        [JsonExceptionFilter]
+        public JsonResult GetDetails(string id)
+        {
+            int mailSettingsId;
+            if (!int.TryParse(id, out mailSettingsId))
+            {
+                throw new JsonException("MailSettingsController.GetDetails: id must be a number.");
+            }
+
+            var result = Mapper.Map<MailSettingViewModel>(_db.MailSettings.Find(mailSettingsId));
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        //[HttpGet]
+        //[JsonExceptionFilter]
+        //public ActionResult GetEdit(string id)
+        //{
+        //    int rlId;
+        //    if (!int.TryParse(id, out rlId))
+        //    {
+        //        throw new JsonException("RecipientListsController.GetDetails: id must be a number.");
+        //    }
+
+        //    var result = rlId == 0
+        //        ? new RecipientListViewModel { rlId = 0, Name = string.Empty, Description = string.Empty }
+        //        : _db.RecipientLists.Where(x => x.rlId == rlId).AsQueryable().ProjectTo<RecipientListViewModel>().FirstOrDefault();
+
+        //    return PartialView(result);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult GetEdit([Bind(Include = "rlId,Name,Description")] RecipientListViewModel recipientListViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (recipientListViewModel.rlId == 0)
+        //        {
+        //            _db.RecipientLists.Add(Mapper.Map<RecipientList>(recipientListViewModel));
+
+        //            _db.SaveChanges();
+        //        }
+        //        else
+        //        {
+        //            RecipientList recipientList = _db.RecipientLists.Find(recipientListViewModel.rlId);
+        //            if (recipientList != null)
+        //            {
+        //                recipientList.Name = recipientListViewModel.Name;
+        //                recipientList.Description = recipientListViewModel.Description;
+
+        //                _db.SaveChanges();
+        //            }
+        //        }
+        //    }
+
+        //    return PartialView(recipientListViewModel);
+        //}
+
+        //// POST: RecipientLists/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    RecipientList recipientList = _db.RecipientLists.Find(id);
+        //    if (recipientList != null)
+        //    {
+        //        _db.RecipientLists.Remove(recipientList);
+
+        //        _db.SaveChanges();
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
     }
 }

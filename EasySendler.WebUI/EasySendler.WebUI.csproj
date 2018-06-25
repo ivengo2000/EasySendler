@@ -191,6 +191,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\WebApiV2Controller.cs" />
     <Compile Include="Controllers\DeliveryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MailSettingsController.cs" />
@@ -266,6 +267,7 @@
     <Content Include="Scripts\select2.full.min.js" />
     <Content Include="Scripts\site\ConfigureRecipientList.js" />
     <Content Include="Scripts\site\Delivery.js" />
+    <Content Include="Scripts\site\MailSettings.js" />
     <Content Include="Scripts\site\RecipientLists.js" />
     <Content Include="Scripts\site\Recipients.js" />
     <Content Include="Scripts\site\TinyMCE.js" />
