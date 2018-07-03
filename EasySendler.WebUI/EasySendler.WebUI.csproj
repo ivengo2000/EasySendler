@@ -253,6 +253,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.bootstrap-duallistbox.min.js" />
     <Content Include="Scripts\jquery.knob.min.js" />
+    <Content Include="Scripts\jquery.matchHeight-min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -449,10 +450,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Recipients\Index.cshtml" />
     <Content Include="Views\RecipientLists\Index.cshtml" />
-    <Content Include="Views\MailSettings\Create.cshtml" />
-    <Content Include="Views\MailSettings\Delete.cshtml" />
-    <Content Include="Views\MailSettings\Details.cshtml" />
-    <Content Include="Views\MailSettings\Edit.cshtml" />
     <Content Include="Views\MailSettings\Index.cshtml" />
     <Content Include="Views\RecipientLists\ConfigureList.cshtml" />
     <Content Include="Views\Templates\Create.cshtml" />
@@ -470,6 +467,8 @@
     <Content Include="Views\Delivery\Index.cshtml" />
     <Content Include="Views\Recipients\GetEdit.cshtml" />
     <Content Include="Views\RecipientLists\GetEdit.cshtml" />
+    <Content Include="Views\MailSettings\GetEdit.cshtml" />
+    <Content Include="Views\Shared\_HomeJumbotron.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

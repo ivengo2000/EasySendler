@@ -6,68 +6,33 @@
 <h2>Mail Settings</h2>
 <p>
     <button class="btn btn-success" type="button" 
-            data-toggle="modal" data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetEdit", "RecipientLists")" 
-            data-id="0" data-action-type="Edit" data-modal-title="Recipient Lists: Create New form">Create New</button>
-
-    @*@Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})*@
+            data-toggle="modal" data-target="#modalMailSettings" data-ajax-url="@Url.Action("GetEdit", "MailSettings")" 
+            data-id="0" data-action-type="Edit" data-modal-title="Mail Settings: Create New form">Create New</button>
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SMTP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SMTPPort)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pop3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pop3Port)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnableSsl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Imap)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImapPort)
-        </th>
+        <th>@Html.DisplayNameFor(model => model.Email)</th>
+        <th>@Html.DisplayNameFor(model => model.SMTP)</th>
+        <th>@Html.DisplayNameFor(model => model.SMTPPort)</th>
+        <th>@Html.DisplayNameFor(model => model.Pop3)</th>
+        <th>@Html.DisplayNameFor(model => model.Pop3Port)</th>
+        <th>@Html.DisplayNameFor(model => model.EnableSsl)</th>
+        <th>@Html.DisplayNameFor(model => model.Imap)</th>
+        <th>@Html.DisplayNameFor(model => model.ImapPort)</th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+        <td>@Html.DisplayFor(modelItem => item.SMTP)</td>
+        <td>@Html.DisplayFor(modelItem => item.SMTPPort)</td>
+        <td>@Html.DisplayFor(modelItem => item.Pop3)</td>
+        <td>@Html.DisplayFor(modelItem => item.Pop3Port)</td>
+        <td>@Html.CheckBoxFor(modelItem => item.EnableSsl, new { data_toggle = "toggle", data_width = "50", data_height = "22", disabled = "true" })</td>
+        <td>@Html.DisplayFor(modelItem => item.Imap)</td>
+        <td>@Html.DisplayFor(modelItem => item.ImapPort)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SMTP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SMTPPort)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pop3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pop3Port)
-        </td>
-        <td>
-            @Html.CheckBoxFor(modelItem => item.EnableSsl, new { data_toggle = "toggle", data_width = "50", data_height = "22", disabled = "true" })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Imap)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImapPort)
-        </td>
-        <td>
-            
             <button class="btn btn-warning btn-xs" type="button"
                     data-toggle="modal" data-target="#modalMailSettings" data-ajax-url="@Url.Action("GetEdit", "MailSettings")"
                     data-id="@item.MailSettingsId" data-action-type="Edit" data-modal-title="Mail Settings: Edit form">Edit</button>&nbsp;|
@@ -77,11 +42,6 @@
             <button class="btn btn btn-danger btn-xs" type="button" data-toggle="modal"
                     data-target="#modalMailSettings" data-ajax-url="@Url.Action("GetDetails", "MailSettings")"
                     data-id="@item.MailSettingsId" data-action-type="Delete" data-modal-title="Mail Settings: Delete confirmation form">Delete</button>
-            <br/>
-
-            @Html.ActionLink("Edit", "Edit", new {id = item.MailSettingsId}, new {@class = "btn btn-warning btn-xs"}) |
-            @Html.ActionLink("Details", "Details", new {id = item.MailSettingsId}, new {@class = "btn btn-info btn-xs"}) |
-            @Html.ActionLink("Delete", "Delete", new {id = item.MailSettingsId}, new {@class = "btn btn-danger btn-xs"})
         </td>
     </tr>
 }

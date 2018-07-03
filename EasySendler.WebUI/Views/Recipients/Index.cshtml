@@ -19,22 +19,39 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.Email)</td>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.SureName)</td>
-            <td>
-                <button class="btn btn-warning btn-xs" type="button" 
-                        data-toggle="modal" data-target="#modalRecipient" data-ajax-url="@Url.Action("GetEdit", "Recipients")" 
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+        <td>@Html.DisplayFor(modelItem => item.SureName)</td>
+        <td>
+            <div class="hidden-sm hidden-xs">
+                <button class="btn btn-warning btn-xs" type="button" data-toggle="modal" 
+                        data-target="#modalRecipient" data-ajax-url="@Url.Action("GetEdit", "Recipients")"
                         data-id="@item.RecipientId" data-action-type="Edit" data-modal-title="Recipients: Edit form">Edit</button>&nbsp;|
-                <button class="btn btn-info btn-xs" type="button" data-toggle="modal" 
-                        data-target="#modalRecipient" data-ajax-url="@Url.Action("GetDetails", "Recipients")" 
+                <button class="btn btn-info btn-xs" type="button" data-toggle="modal"
+                        data-target="#modalRecipient" data-ajax-url="@Url.Action("GetDetails", "Recipients")"
                         data-id="@item.RecipientId" data-action-type="Details" data-modal-title="Recipients: Details form">Details</button>&nbsp;|
-                <button class="btn btn btn-danger btn-xs" type="button" data-toggle="modal" 
-                        data-target="#modalRecipient" data-ajax-url="@Url.Action("GetDetails", "Recipients")" 
+                <button class="btn btn btn-danger btn-xs" type="button" data-toggle="modal"
+                        data-target="#modalRecipient" data-ajax-url="@Url.Action("GetDetails", "Recipients")"
                         data-id="@item.RecipientId" data-action-type="Delete" data-modal-title="Recipients: Delete confirmation form">Delete</button>
-            </td>
-        </tr>
+            </div>
+            
+            <div class="btn-group visible-sm visible-xs" role="group">
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions &nbsp;<span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a data-toggle="modal" href="#"
+                       data-target="#modalRecipient" data-ajax-url="@Url.Action("GetEdit", "Recipients")"
+                       data-id="@item.RecipientId" data-action-type="Edit" data-modal-title="Recipients: Edit form">Edit</a></li>
+                    <li><a data-toggle="modal" href="#"
+                       data-target="#modalRecipient" data-ajax-url="@Url.Action("GetDetails", "Recipients")"
+                       data-id="@item.RecipientId" data-action-type="Details" data-modal-title="Recipients: Details form">Details</a></li>
+                    <li><a data-toggle="modal" href="#"
+                       data-target="#modalRecipient" data-ajax-url="@Url.Action("GetDetails", "Recipients")"
+                       data-id="@item.RecipientId" data-action-type="Delete" data-modal-title="Recipients: Delete confirmation form">Delete</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
     }
 </table>
 

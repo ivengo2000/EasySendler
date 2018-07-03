@@ -6,6 +6,7 @@
 <h2>Configure Recipients Lists</h2>
 
 <div class="no-gutters">
+    <div class="alert alert-info" role="alert">Select the Recipient List from dropdown below to further configuration</div>
     <div class="col">
         <select id="ddlRecipientLists" class="ddl-select2-source"
                 data-tags="false" data-placeholder="Select an option" data-allow-clear="true"
@@ -15,14 +16,15 @@
         </select>
     </div>
 </div>
+<hr/>
 <div class="no-gutters">
+    <div class="alert alert-info" role="alert">Select Recipients for selected Recipient List</div>
     <div class="col">
         <select multiple="multiple" size="10" id="dlbRecipients"></select>
-        <br>
-        <button type="submit" class="btn btn-primary" id="btnSave">Save data</button>
     </div>
 </div>
-
+<hr/>
+<button type="submit" class="btn btn-primary" id="btnSave">Save data</button>
 @section Scripts {
     @Scripts.Render("~/bundles/additionaljq")
     <script type="text/javascript">

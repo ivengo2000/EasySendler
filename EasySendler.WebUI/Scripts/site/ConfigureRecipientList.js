@@ -39,8 +39,8 @@
     });
 
     $dlbRecipientsJq = $dlbRecipients.bootstrapDualListbox({
-        nonSelectedListLabel: 'Non-selected',
-        selectedListLabel: 'Selected',
+        nonSelectedListLabel: 'All emails',
+        selectedListLabel: 'Selected emails for the recipient list',
         preserveSelectionOnMove: 'moved',
         moveOnSelect: false
     });

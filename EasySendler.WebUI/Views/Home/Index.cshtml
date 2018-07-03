@@ -2,15 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
-
-
-<div class="jumbotron">
-    <h1>Easy Sendler</h1>
-    <p class="lead">Курсовая работа на тему "Разработка интернет ресурса массового отправления электронных писем на технологии Asp.Net MVC."</p>
-    <p>@Html.ActionLink(HttpUtility.HtmlDecode("Details &raquo;"), "Contact", "Home", new { area = "" }, new { @class = "btn btn-primary btn-lg" })</p>
-</div>
-
-
+@Html.Partial("_HomeJumbotron")
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="thumbnail card">
@@ -19,10 +11,8 @@
             </div>
             <div class="caption">
                 <h1>What</h1>
-                <p class="description">What - means "Templates": it is content that we will send in our e-mails.</p>
-                <div >
-                    @Html.ActionLink(HttpUtility.HtmlDecode("Details &raquo;"), "Index", "Templates", null, new { @class = "btn btn-primary" })
-                </div>
+                <p class="description" data-mh="descriptions">What - means "Templates": it is content that we will send in our e-mails.</p>
+                <div>@Html.ActionLink(HttpUtility.HtmlDecode("Details &raquo;"), "Index", "Templates", null, new { @class = "btn btn-primary" })</div>
             </div>
         </div>
     </div>
@@ -34,14 +24,12 @@
             </div>
             <div class="caption">
                 <h1>To</h1>
-                <p class="description">
+                <p class="description" data-mh="descriptions">
                     To - means "Recipients" and "Recipient Lists":
                     "Recipient": the person to send e-mail <br/>
                     "Recipient List": List of persons created for any reason
                 </p>
-                <div >
-                    @Html.ActionLink(HttpUtility.HtmlDecode("Details &raquo;"), "Index", "Recipients", null, new {@class = "btn btn-primary"})
-                </div>
+                <div>@Html.ActionLink(HttpUtility.HtmlDecode("Details &raquo;"), "Index", "Recipients", null, new {@class = "btn btn-primary"})</div>
             </div>
         </div>
     </div>
@@ -53,13 +41,9 @@
             </div>
             <div class="caption" >
                 <h1>How</h1>
-                <p class="description">
-                    How - means "Mail Settings": it is settings for email delivery
-                </p>
-            </div>
-            <div  >
-                @Html.ActionLink(HttpUtility.HtmlDecode("Details &raquo;"), "Index", "MailSettings", null, new { @class = "btn btn-primary" })
-            </div>
+                <p class="description" data-mh="descriptions">How - means "Mail Settings": it is settings for email delivery</p>
+                <div>@Html.ActionLink(HttpUtility.HtmlDecode("Details &raquo;"), "Index", "MailSettings", null, new { @class = "btn btn-primary" })</div>
+            </div>          
         </div>
     </div>
 </div>

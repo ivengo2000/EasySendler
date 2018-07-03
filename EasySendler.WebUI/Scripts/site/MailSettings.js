@@ -29,15 +29,19 @@
                         break;
                     case "Details":
                         renderTemplate($modalBody, templateOpen, { item: JSON.parse(rawData) });
-                        $(".checkbox").bootstrapToggle();
                         break;
                     case "Delete":
                         renderTemplate($modalBody, templateDelete, { item: JSON.parse(rawData) });
-                        $(".checkbox").bootstrapToggle();
                         break;
                     default:
                         break;
                 }
+                $(".checkbox").bootstrapToggle();
+
+                //$('.checkbox').change(function() {
+                //    console.log('Toggle: ' + $(this).prop('checked'));
+                //});
+
             },
             error: getAjaxError
         });

@@ -32,8 +32,6 @@ namespace EasySendler.Models.BusinessLogic
         [StringLength(200)]
         public string Pop3Port { get; set; }
 
-        [Required]
-        [StringLength(200)]
         public bool EnableSsl { get; set; }
 
         [StringLength(200)]

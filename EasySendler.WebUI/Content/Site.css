@@ -29,6 +29,11 @@ textarea {
     max-width: 280px;
 }
 
+
+.navbar-inverse {
+    background: rgba(16, 23, 29, 0.9);
+}
+
 .select2-search__field {
     max-width: none;
 }
@@ -265,7 +270,8 @@ textarea {
 .modal .form-group.form-actions {
     margin-bottom: 5px;
 }
-.modal .form-group .form-control.text-box {
+.modal .form-group .form-control.text-box,
+.modal .form-group .form-control.text-area {
     min-width: 100%;
 }
 .modal .form-group .text-danger {
