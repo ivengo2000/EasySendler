@@ -280,3 +280,9 @@ textarea {
 .modal .modal-body .delete-btn-form {
     display: inline-block;
 }
+
+.recipients-table tr td .open > .dropdown-menu,
+.recipientlists-table tr td .open > .dropdown-menu,
+.mailsettings-table tr td .open > .dropdown-menu {
+    top: 20px;
+}
