@@ -13,14 +13,14 @@
     <tr>
         <th>@Html.DisplayNameFor(model => model.Name)</th>
         <th>@Html.DisplayNameFor(model => model.Description)</th>
-        <th></th>
+        <th class="actions"></th>
     </tr>
 @foreach (var item in Model) {
     <tr>
         <td>@Html.DisplayFor(modelItem => item.Name)</td>
         <td>@Html.DisplayFor(modelItem => item.Description)</td>
         <td>
-            <div class="hidden-sm hidden-xs">
+            <div class="hidden-sm hidden-xs visible-lg-inline-block visible-md-inline-block">
                 <button class="btn btn-warning btn-xs" type="button"
                         data-toggle="modal" data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetEdit", "RecipientLists")"
                         data-id="@item.rlId" data-action-type="Edit" data-modal-title="Recipient Lists: Edit form">Edit</button>&nbsp;|
@@ -31,7 +31,7 @@
                         data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDetails", "RecipientLists")"
                         data-id="@item.rlId" data-action-type="Delete" data-modal-title="Recipient Lists: Delete confirmation form">Delete</button>
             </div>
-            <div class="btn-group visible-sm visible-xs" role="group">
+            <div class="btn-group visible-sm-inline-block visible-xs-inline-block hidden-lg hidden-md" role="group">
                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions &nbsp;<span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li><a data-toggle="modal" href="#"

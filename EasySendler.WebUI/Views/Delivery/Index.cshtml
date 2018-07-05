@@ -42,7 +42,7 @@
             <div class="col col-sm-12">
                 <h4>Settings</h4>
                 <select id="ddlMailSettingsLists" class="ddl-select2-source"
-                        data-tags="false" data-placeholder="Select a Mail Settings and and email for  send from ..." data-allow-clear="true"
+                        data-tags="false" data-placeholder="Select a Mail Settings for send from ..." data-allow-clear="true"
                         data-ajax--url="@Url.Action("GetForDropDown", "MailSettings")" data-ajax--cache="true"></select>
             </div>
         </div>
@@ -147,15 +147,15 @@
 <script type="text/template" id="recipientListDetailsTemplate">
     <table class="table text-left">
         <tbody>
-            <tr><th>Email</th><th>Name</th><th>SureName</th><th></th></tr>
+            <tr><th>Email</th><th>Name</th><th>SureName</th>@*<th></th>*@</tr>
             <% _.each( items, function(item){ %>
             <tr>
                 <td><a href="#"><%- item.Email %></a></td>
                 <td><a href="#"><%- item.Name %></a></td>
                 <td><a href="#"><%- item.SureName %></a></td>
-                <td><a class="btn btn-warning btn-xs" href="/Recipients/Details/<%- item.rId %>">Details</a> | 
+                @*<td><a class="btn btn-warning btn-xs" href="/Recipients/Details/<%- item.rId %>">Details</a> | 
                     <a class="btn btn-info btn-xs" href="/Recipients/Edit/<%- item.rId %>">Edit</a></td>
-            </tr>
+            </tr>*@
             <% }); %>
         </tbody>
     </table>

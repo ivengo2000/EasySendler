@@ -286,3 +286,15 @@ textarea {
 .mailsettings-table tr td .open > .dropdown-menu {
     top: 20px;
 }
+.recipients-table tr th.actions,
+.recipientlists-table tr th.actions,
+.mailsettings-table tr th.actions {
+    width: 168px;
+}
+@media (max-width: 992px) {
+    .recipients-table tr th.actions,
+    .recipientlists-table tr th.actions,
+    .mailsettings-table tr th.actions {
+        width: 85px;
+    } 
+}

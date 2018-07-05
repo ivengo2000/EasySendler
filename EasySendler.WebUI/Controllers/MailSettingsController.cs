@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -16,6 +14,7 @@ namespace EasySendler.Controllers
     public class MailSettingsController : Controller
     {
         private readonly MySmtpEntities _db = new MySmtpEntities();
+        private int descriptionTruncateValue = 85;
 
         public MailSettingsController()
         {
@@ -24,7 +23,7 @@ namespace EasySendler.Controllers
                 cfg.CreateMap<MailSetting, MailSettingViewModel>();
                 cfg.CreateMap<MailSetting, DropDownViewModel>()
                     .ForMember(dest => dest.Id, y => y.MapFrom(source => source.MailSettingsId))
-                    .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Email + "|" + source.Description));
+                    .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Email + "|" + (source.Description.Length > descriptionTruncateValue ? source.Description.Substring(0, descriptionTruncateValue) + "..." : source.Description)));
                 cfg.CreateMap<MailSettingViewModel, MailSetting>();
             });
         }

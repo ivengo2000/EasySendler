@@ -201,6 +201,7 @@
     <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\JsonExceptionFilterAttribute.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

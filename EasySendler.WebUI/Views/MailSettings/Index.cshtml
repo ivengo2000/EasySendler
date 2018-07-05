@@ -13,25 +13,21 @@
     <tr>
         <th>@Html.DisplayNameFor(model => model.Email)</th>
         <th>@Html.DisplayNameFor(model => model.SMTP)</th>
-        <th>@Html.DisplayNameFor(model => model.SMTPPort)</th>
-        @*<th>@Html.DisplayNameFor(model => model.Pop3)</th>
-        <th>@Html.DisplayNameFor(model => model.Pop3Port)</th>*@
+        <th class="hidden-xs">@Html.DisplayNameFor(model => model.SMTPPort)</th>
         <th>@Html.DisplayNameFor(model => model.EnableSsl)</th>
-        <th>@Html.DisplayNameFor(model => model.Imap)</th>
-        <th>@Html.DisplayNameFor(model => model.ImapPort)</th>
-        <th></th>
+        <th class="hidden-xs">@Html.DisplayNameFor(model => model.Imap)</th>
+        <th class="hidden-xs">@Html.DisplayNameFor(model => model.ImapPort)</th>
+        <th class="actions"></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>@Html.DisplayFor(modelItem => item.Email)</td>
         <td>@Html.DisplayFor(modelItem => item.SMTP)</td>
-        <td>@Html.DisplayFor(modelItem => item.SMTPPort)</td>
-        @*<td>@Html.DisplayFor(modelItem => item.Pop3)</td>
-        <td>@Html.DisplayFor(modelItem => item.Pop3Port)</td>*@
+        <td class="hidden-xs">@Html.DisplayFor(modelItem => item.SMTPPort)</td>
         <td>@Html.CheckBoxFor(modelItem => item.EnableSsl, new { data_toggle = "toggle", data_width = "50", data_height = "22", disabled = "true" })</td>
-        <td>@Html.DisplayFor(modelItem => item.Imap)</td>
-        <td>@Html.DisplayFor(modelItem => item.ImapPort)</td>
+        <td class="hidden-xs">@Html.DisplayFor(modelItem => item.Imap)</td>
+        <td class="hidden-xs">@Html.DisplayFor(modelItem => item.ImapPort)</td>
         <td>            
             <div class="hidden-sm hidden-xs">
                 <button class="btn btn-warning btn-xs" type="button"

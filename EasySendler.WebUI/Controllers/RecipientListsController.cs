@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -15,16 +16,18 @@ namespace EasySendler.Controllers
     public class RecipientListsController : Controller
     {
         private readonly MySmtpEntities _db = new MySmtpEntities();
+        private int descriptionTruncateValue = 85;
 
         public RecipientListsController()
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<RecipientList, RecipientListViewModel>();
+                cfg.CreateMap<RecipientList, RecipientListViewModel>()
+                    .ForMember(dest => dest.Description, y => y.MapFrom(source => source.Description.Length > descriptionTruncateValue ? source.Description.Substring(0, descriptionTruncateValue) + "..." : source.Description));
                 cfg.CreateMap<RecipientListViewModel, RecipientList>();
                 cfg.CreateMap<RecipientList, DropDownViewModel>()
                     .ForMember(dest => dest.Id, y => y.MapFrom(source => source.rlId))
-                    .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Name + "|" + source.Description));
+                    .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Name + "|" + (source.Description.Length > descriptionTruncateValue ? source.Description.Substring(0, descriptionTruncateValue) + "..." : source.Description)));
                 cfg.CreateMap<sp_getRecipientsByListIdResult, DualListViewModel>()
                     .ForMember(dest => dest.Id, y => y.MapFrom(source => source.RecipientId))
                     .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Email))
