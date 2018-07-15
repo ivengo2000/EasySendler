@@ -281,6 +281,11 @@ textarea {
     display: inline-block;
 }
 
+.modal .modal-body .alert {
+    margin-bottom: 0;
+    padding: 15px 15px 0 15px;
+}
+
 .recipients-table tr td .open > .dropdown-menu,
 .recipientlists-table tr td .open > .dropdown-menu,
 .mailsettings-table tr td .open > .dropdown-menu {

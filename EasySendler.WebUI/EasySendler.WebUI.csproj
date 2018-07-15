@@ -199,6 +199,7 @@
     <Compile Include="Controllers\RecipientListsController.cs" />
     <Compile Include="Controllers\RecipientsController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
+    <Compile Include="Extensions\UniqueEmailInMailSettingsValidationAttribute.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\JsonExceptionFilterAttribute.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

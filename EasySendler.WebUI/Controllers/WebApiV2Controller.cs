@@ -46,7 +46,7 @@ namespace EasySendler.Controllers
                     .ForMember(dest => dest.Description, y => y.MapFrom(source => source.Description.Length > descriptionTruncateValue ? source.Description.Substring(0, descriptionTruncateValue) + "..." : source.Description));
             });
         }
-
+        
         // GET: api/rl/get?limit=10&start=1
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("rl/get")]

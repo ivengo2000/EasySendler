@@ -20,18 +20,21 @@ namespace EasySendler.Controllers
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<MailSetting, MailSettingViewModel>();
+                cfg.CreateMap<MailSetting, MailSettingViewModel>()
+                    .AfterMap((src, dest) => dest.Password = dest.Password.Decrypt());
                 cfg.CreateMap<MailSetting, DropDownViewModel>()
                     .ForMember(dest => dest.Id, y => y.MapFrom(source => source.MailSettingsId))
                     .ForMember(dest => dest.Text, y => y.MapFrom(source => source.Email + "|" + (source.Description.Length > descriptionTruncateValue ? source.Description.Substring(0, descriptionTruncateValue) + "..." : source.Description)));
-                cfg.CreateMap<MailSettingViewModel, MailSetting>();
+                cfg.CreateMap<MailSettingViewModel, MailSetting>()
+                    .AfterMap((src, dest) => dest.Password = dest.Password.Encrypt())
+                ;
             });
         }
 
         // GET: MailSettings
         public ActionResult Index()
         {
-            return View(_db.MailSettings.ProjectTo<MailSettingViewModel>().ToList());
+            return View(_db.MailSettings.ProjectTo<MailSettingViewModel>().OrderBy(x => x.MailSettingsId).ToList());
         }
 
         [HttpGet]
@@ -96,7 +99,7 @@ namespace EasySendler.Controllers
 
             var result = mailSettingsId == 0
                 ? new MailSettingViewModel { MailSettingsId = 0, Email = string.Empty, Description = string.Empty, Password = string.Empty, SMTP = string.Empty, SMTPPort = string.Empty, Pop3 = string.Empty, Pop3Port = string.Empty, Imap = string.Empty, ImapPort = string.Empty, EnableSsl = false }
-                : _db.MailSettings.Where(x => x.MailSettingsId == mailSettingsId).AsQueryable().ProjectTo<MailSettingViewModel>().FirstOrDefault();
+                : Mapper.Map<MailSettingViewModel>(_db.MailSettings.Where(x => x.MailSettingsId == mailSettingsId).AsQueryable().FirstOrDefault());
 
             return PartialView(result);
         }
@@ -107,6 +110,13 @@ namespace EasySendler.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_db.MailSettings.Any(x => x.Email.Equals(mailSettingViewModel.Email) && x.MailSettingsId != mailSettingViewModel.MailSettingsId))
+                {
+                    ModelState.AddModelError("Email", "Email must be unique.");
+
+                    return PartialView("GetEdit", mailSettingViewModel);
+                }
+                
                 if (mailSettingViewModel.MailSettingsId == 0)
                 {
                     _db.MailSettings.Add(Mapper.Map<MailSetting>(mailSettingViewModel));
@@ -115,19 +125,19 @@ namespace EasySendler.Controllers
                 }
                 else
                 {
-                    MailSetting recipientList = _db.MailSettings.Find(mailSettingViewModel.MailSettingsId);
-                    if (recipientList != null)
+                    var set = _db.MailSettings.Find(mailSettingViewModel.MailSettingsId);
+                    if (set != null)
                     {
-                        recipientList.Email = mailSettingViewModel.Email;
-                        recipientList.Password = mailSettingViewModel.Password;
-                        recipientList.SMTP = mailSettingViewModel.SMTP;
-                        recipientList.SMTPPort = mailSettingViewModel.SMTPPort;
-                        recipientList.Pop3 = mailSettingViewModel.Pop3;
-                        recipientList.Pop3Port = mailSettingViewModel.Pop3Port;
-                        recipientList.EnableSSL = mailSettingViewModel.EnableSsl;
-                        recipientList.Imap = mailSettingViewModel.Imap;
-                        recipientList.ImapPort = mailSettingViewModel.ImapPort;
-                        recipientList.Description = mailSettingViewModel.Description;
+                        set.Email = mailSettingViewModel.Email;
+                        set.Password = mailSettingViewModel.Password.Encrypt();
+                        set.SMTP = mailSettingViewModel.SMTP;
+                        set.SMTPPort = mailSettingViewModel.SMTPPort;
+                        set.Pop3 = mailSettingViewModel.Pop3;
+                        set.Pop3Port = mailSettingViewModel.Pop3Port;
+                        set.EnableSSL = mailSettingViewModel.EnableSsl;
+                        set.Imap = mailSettingViewModel.Imap;
+                        set.ImapPort = mailSettingViewModel.ImapPort;
+                        set.Description = mailSettingViewModel.Description;
 
                         _db.SaveChanges();
                     }
