@@ -213,6 +213,7 @@
     <Compile Include="Models\Controls\DropDownPagedViewModel.cs" />
     <Compile Include="Models\Controls\DropDownViewModel.cs" />
     <Compile Include="Models\Controls\DualListViewModel.cs" />
+    <Compile Include="Models\Controls\MobileListViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
