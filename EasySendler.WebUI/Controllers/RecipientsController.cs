@@ -51,6 +51,39 @@ namespace EasySendler.Controllers
 
         [HttpGet]
         [JsonExceptionFilter]
+        public JsonResult GetDelete(string id)
+        {
+            int rId;
+            if (!int.TryParse(id, out rId))
+            {
+                throw new JsonException("RecipientsController.GetDelete: id must be a number.");
+            }
+
+            object result;
+            var lists = _db.RecipientLists.Where(x => x.RecipientListsRelations.Any(r => r.rId == rId)).Select(s => s.Name).ToArray();
+            if (lists.Length > 0)
+            {
+                result = new
+                {
+                    Error = "This Recipient is part of following Recipient Lists:",
+                    ErrorRecipientLists = string.Join(", ", lists),
+                    ErrorTip = "Need to exclude it from all lists before to compolete this operation."
+                };
+            }       
+            else
+            {
+                result = _db.Recipients.Where(x => x.RecipientId == rId).AsQueryable().ProjectTo<RecipientsViewModel>().FirstOrDefault();
+            }
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [HttpGet]
+        [JsonExceptionFilter]
         public ActionResult GetEdit(string id)
         {
             int rId;

@@ -28,7 +28,7 @@
                         data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDetails", "RecipientLists")"
                         data-id="@item.rlId" data-action-type="Details" data-modal-title="Recipient Lists: Details form">Details</button>&nbsp;|
                 <button class="btn btn btn-danger btn-xs" type="button" data-toggle="modal"
-                        data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDetails", "RecipientLists")"
+                        data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDelete", "RecipientLists")"
                         data-id="@item.rlId" data-action-type="Delete" data-modal-title="Recipient Lists: Delete confirmation form">Delete</button>
             </div>
             <div class="btn-group visible-sm-inline-block visible-xs-inline-block hidden-lg hidden-md" role="group">
@@ -41,7 +41,7 @@
                             data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDetails", "RecipientLists")"
                             data-id="@item.rlId" data-action-type="Details" data-modal-title="Recipient Lists: Details form">Details</a></li>
                     <li><a data-toggle="modal" href="#"
-                            data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDetails", "RecipientLists")"
+                            data-target="#modalRecipientList" data-ajax-url="@Url.Action("GetDelete", "RecipientLists")"
                             data-id="@item.rlId" data-action-type="Delete" data-modal-title="Recipient Lists: Delete confirmation form">Delete</a></li>
                 </ul>
             </div>
@@ -77,10 +77,25 @@
 </script>
 <script type="text/template" id="recipientListDeleteTemplate">
     <div class="form-horizontal">
+        <% if(item.Error) { %>
+        <div class="alert alert-danger text-center" role="alert">
+            <%- item.Error %>&nbsp;<br />
+            <strong><%- item.ErrorRecipientLists %></strong>
+            <br /> <%- item.ErrorTip %>
+        </div>
+        <br />
+        <div class="form-group form-actions">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+        <% } else { %>
         <div class="alert alert-info text-center" role="alert">Are you sure you want to delete following Recipient List?</div>
         <dl class="dl-horizontal">
-            <dt>Name</dt><dd><%- item.Name %></dd>
-            <dt>Description</dt><dd><%- item.Description %></dd>
+            <dt>Name</dt>
+            <dd><%- item.Name %></dd>
+            <dt>Description</dt>
+            <dd><%- item.Description %></dd>
         </dl>
         <div class="form-group form-actions">
             <div class="col-md-12 text-center">
@@ -93,6 +108,7 @@
                 &nbsp;&nbsp;&nbsp;<button class="btn btn-primary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
+        <% } %>  
     </div>
 </script>
 
