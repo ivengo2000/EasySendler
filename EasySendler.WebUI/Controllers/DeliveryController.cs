@@ -35,7 +35,8 @@ namespace EasySendler.Controllers
 
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<MailSetting, MailSettingViewModel>();
+                cfg.CreateMap<MailSetting, MailSettingViewModel>()
+                    .AfterMap((src, dest) => dest.Password = dest.Password.Decrypt());
                 cfg.CreateMap<Template, TemplateViewModel>();
                 //cfg.CreateMap<RecipientList, RecipientListViewModel>();
                 //cfg.CreateMap<RecipientList, DropDownViewModel>()
@@ -100,7 +101,7 @@ namespace EasySendler.Controllers
             var generatedBody = template.Body.Replace("{{name}}", name + " " + sureName).Replace("{{email}}", email);
 
 
-            var emailMessage = new MailMessage(mailSetting.Email, email, template.Name, generatedBody) //ToDo: add new filed into Template entity named Subject.
+            var emailMessage = new MailMessage(mailSetting.Email, email, template.Name, generatedBody) //ToDo: add new field into Template entity named Subject.
             {
                 IsBodyHtml = true
             };

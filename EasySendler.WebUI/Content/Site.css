@@ -349,3 +349,13 @@ textarea {
     position: absolute;
 
 }
+
+.delivery-select-options-block #btnOpenRecipientList {
+    top: -2px;
+    position: relative;
+    width: 100%;
+}
+
+.delivery-select-options-block #ddlRecipientLists {
+    width: 100%;
+}
