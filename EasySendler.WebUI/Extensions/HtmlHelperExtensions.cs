@@ -34,6 +34,42 @@ namespace EasySendler.Extensions
             }
             
             return  Image(helper, id, imgSrc, alternateText, htmlAttributes);
-        } 
+        }
+
+        public static string GetActiveMenu(this HtmlHelper helper, RouteValueDictionary values, string comparedValue)
+        {
+            string result = "";
+            var pathKey = values["controller"] + "/" + values["action"];
+            if (pathKey.Equals(comparedValue))
+            {
+                result = "active";
+            }
+
+            return result;
+        }
+
+        public static string GetActiveRecipientsSubmenuMenu(this HtmlHelper helper, RouteValueDictionary values)
+        {
+            string result = "";
+            string pathKey = values["controller"].ToString();
+            if (pathKey.Equals("Recipients") || pathKey.Equals("RecipientLists"))
+            {
+                result = "active";
+            }
+
+            return result;
+        }
+
+        public static string GetActiveTemplateSubmenuMenu(this HtmlHelper helper, RouteValueDictionary values)
+        {
+            string result = "";
+            string pathKey = values["controller"].ToString();
+            if (pathKey.Equals("Templates"))
+            {
+                result = "active";
+            }
+
+            return result;
+        }
     }
 }

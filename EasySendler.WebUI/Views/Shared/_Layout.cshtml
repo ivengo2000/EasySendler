@@ -1,4 +1,5 @@
 ﻿@using System.Activities.Expressions
+@using EasySendler.Extensions
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,6 @@
     <title>@ViewBag.Title - Easy Sendler</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -18,28 +18,32 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Easy Sendler", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("Easy Sendler", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                    <span class="glyphicon glyphicon-envelope"></span><span class="title">Easy Sendler</span>
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-                    <li>@Html.ActionLink("Templates", "Index", "Templates")</li>
-                    <li role="presentation" class="dropdown">
+                    
+                    <li class="@Html.GetActiveTemplateSubmenuMenu(ViewContext.RouteData.Values)">@Html.ActionLink("Templates", "Index", "Templates")</li>
+                    <li class="dropdown @Html.GetActiveRecipientsSubmenuMenu(ViewContext.RouteData.Values)" role="presentation">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recipient <span class="caret"></span></a>
                         <ul class="dropdown-menu inverse-drowdown">
-                            <li>@Html.ActionLink("Recipients", "Index", "Recipients")</li>
-                            <li>@Html.ActionLink("Recipient Lists", "Index", "RecipientLists")</li>
-                            <li>@Html.ActionLink("Configure Recipient Lists", "ConfigureList", "RecipientLists")</li>
+                            <li class="@Html.GetActiveMenu(ViewContext.RouteData.Values, "Recipients/Index")">@Html.ActionLink("Recipients", "Index", "Recipients")</li>
+                            <li class="@Html.GetActiveMenu(ViewContext.RouteData.Values, "RecipientLists/Index")">@Html.ActionLink("Recipient Lists", "Index", "RecipientLists")</li>
+                            <li class="@Html.GetActiveMenu(ViewContext.RouteData.Values, "RecipientLists/ConfigureList")">@Html.ActionLink("Configure Recipient Lists", "ConfigureList", "RecipientLists")</li>
                         </ul>
                     </li>
 
-                    <li>@Html.ActionLink("MailSettings", "Index", "MailSettings")</li>
+                    <li class="@Html.GetActiveMenu(ViewContext.RouteData.Values, "MailSettings/Index")">@Html.ActionLink("MailSettings", "Index", "MailSettings")</li>
 
-                    <li>@Html.ActionLink("Delivery", "Index", "Delivery")</li>
+                    <li class="@Html.GetActiveMenu(ViewContext.RouteData.Values, "Delivery/Index")">@Html.ActionLink("Delivery", "Index", "Delivery")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="@Html.GetActiveMenu(ViewContext.RouteData.Values, "Home/About")">@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="@Html.GetActiveMenu(ViewContext.RouteData.Values, "Home/Contact")">@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @*@Html.Partial("_LoginPartial")*@
             </div>
