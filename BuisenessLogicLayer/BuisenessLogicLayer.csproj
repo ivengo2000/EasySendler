@@ -106,6 +106,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MySmtpModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
     <None Include="MySmtpModel.edmx.diagram">
       <DependentUpon>MySmtpModel.edmx</DependentUpon>
     </None>

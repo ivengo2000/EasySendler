@@ -240,6 +240,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\EasySendler.pubxml" />
     <Content Include="img\3256021492_5af2b3fa98_b.jpg" />
     <Content Include="img\NTiSHicLAWo.jpg" />

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="DTOs">
+    <Position X="12.549" Y="5.426" Height="0.291" Width="0.7" />
+  </Comment>
+  <Comment CommentText="Emailing: abstractions and services">
+    <Position X="12.207" Y="0.5" Height="0.68" Width="1.199" />
+  </Comment>
+  <Comment CommentText="EF Entities: DB operations">
+    <Position X="3.01" Y="0.5" Height="0.529" Width="0.979" />
+  </Comment>
+  <Class Name="BuisenessLogicLayer.Models.BaseEmailMessageInfo">
+    <Position X="10.5" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAACAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\BaseEmailMessageInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.Models.ErrorInfo">
+    <Position X="14.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ErrorInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.Models.MailServerInfo">
+    <Position X="12.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAQACAAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Models\MailServerInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.MySmtpEntities">
+    <Position X="2.75" Y="1.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAFEAAAAAAAIAAAAAAEEAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>MySmtpModel.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.MailSetting">
+    <Position X="5.25" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAQAAAAAACAgAAABAECAAAAAAAAACAECAAAAAAAAABA=</HashCode>
+      <FileName>MailSetting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.Recipient">
+    <Position X="0.5" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQACAAAAAIAAAAAAQAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Recipient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.RecipientList">
+    <Position X="5.25" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAEAQAA=</HashCode>
+      <FileName>RecipientList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.RecipientListsRelation">
+    <Position X="2.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAAAgAAAAAAAAAAAAAAAAAAAAABAAAEAAAA=</HashCode>
+      <FileName>RecipientListsRelation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.Template">
+    <Position X="0.5" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAABCAQAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Template.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuisenessLogicLayer.Services.MailMessageService" BaseTypeListCollapsed="true">
+    <Position X="13" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Services\MailMessageService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BuisenessLogicLayer.Services.MailService" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAEAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\MailService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="BuisenessLogicLayer.Abstractions.IMailMessageService">
+    <Position X="13" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstractions\IMailMessageService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BuisenessLogicLayer.Abstractions.IMailService">
+    <Position X="10.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstractions\IMailService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

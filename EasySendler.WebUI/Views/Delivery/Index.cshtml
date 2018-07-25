@@ -12,14 +12,14 @@
     <div class="col-sm-7 col-md-8 col-lg-8 delivery-select-options-block" data-mh="delivery-blocks">
         <h4>Recipients</h4>
         <div class="row mtb-30">
-            <div class="col col-lg-10 col-md-9 col-sm-8 col-xs-9">
+            <div class="col-lg-10 col-md-9 col-sm-8 col-xs-9 rl-ddl-wrapper">
                 <select id="ddlRecipientLists" class="ddl-select2-source"
                         data-tags="false" data-placeholder="Select a Recipient list ..." data-allow-clear="true"
                         data-ajax--url="@Url.Action("GetRecipientListForDropDown", "RecipientLists")" data-ajax--cache="true"
                         data-recipients-amount-url="@Url.Action("GetRecipientsAmount", "RecipientLists")"
                         data-recipients-details-url="@Url.Action("GetRecipients", "RecipientLists")"></select>
             </div>
-            <div class="col col-lg-2 col-md-3 col-sm-4 col-xs-3">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-3 rl-details-wrapper">
                 <button id="btnOpenRecipientList" type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#recipientListDetails">List details ...</button>
             </div>
         </div>

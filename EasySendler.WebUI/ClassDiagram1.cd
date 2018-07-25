@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EasySendler.WebApiConfig">
+    <Position X="2.25" Y="6" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Controllers.DeliveryController">
+    <Position X="7.5" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAAI=</HashCode>
+      <FileName>Controllers\DeliveryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Controllers.HomeController">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEACAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Controllers.MailSettingsController">
+    <Position X="0.5" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACQAAACAAAAAAAAAAAAAAAEAAQEAAIAAAAA=</HashCode>
+      <FileName>Controllers\MailSettingsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Controllers.RecipientListsController">
+    <Position X="7.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAACAQAFAAAAAgAgAAAEAAQEAgKAAAAA=</HashCode>
+      <FileName>Controllers\RecipientListsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Controllers.RecipientsController">
+    <Position X="5.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAACAAAEAAAAAAAAAAAEAAAEAAIAAAAA=</HashCode>
+      <FileName>Controllers\RecipientsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Controllers.TemplatesController">
+    <Position X="3" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAAiAAAIAAAAAAAEAAEACAEEAAAAAAAA=</HashCode>
+      <FileName>Controllers\TemplatesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Controllers.WebApiV2Controller">
+    <Position X="4.75" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAIAgAAAAAAAAAAAAAAAAAABAAAAAAAAAUAAAQAAAAI=</HashCode>
+      <FileName>Controllers\WebApiV2Controller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Extensions.HtmlHelperExtensions">
+    <Position X="3" Y="9.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAICQAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\HtmlHelperExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Extensions.JsonExceptionFilterAttribute" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="9.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Extensions\JsonExceptionFilterAttribute.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EasySendler.Extensions.StringExtensions">
+    <Position X="8.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAQAAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\StringExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Extensions.UniqueEmailInMailSettingsValidationAttribute">
+    <Position X="6" Y="9.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\UniqueEmailInMailSettingsValidationAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Models.BusinessLogic.MailSettingViewModel">
+    <Position X="19.25" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAQAAAAAACAgCAABAECAAAAAAAAAAAECAAAAAAAAABA=</HashCode>
+      <FileName>Models\BusinessLogic\MailSettingsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Models.BusinessLogic.RecipientListViewModel">
+    <Position X="17" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Models\BusinessLogic\RecipientListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Models.BusinessLogic.RecipientsViewModel">
+    <Position X="15" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAACAAAAAIAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BusinessLogic\RecipientsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Models.BusinessLogic.TemplateViewModel">
+    <Position X="13.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAABCAQAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BusinessLogic\TemplateViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Models.Controls.DropDownPagedViewModel">
+    <Position X="16" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Controls\DropDownPagedViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Models.Controls.DropDownViewModel">
+    <Position X="13.25" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Models\Controls\DropDownViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Models.Controls.DualListViewModel">
+    <Position X="15" Y="5" Width="1.75" />
+    <InheritanceLine Type="EasySendler.Models.Controls.DropDownViewModel" ManuallyRouted="true">
+      <Path>
+        <Point X="14.125" Y="4.546" />
+        <Point X="14.125" Y="4.81" />
+        <Point X="15.875" Y="4.81" />
+        <Point X="15.875" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Controls\DualListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasySendler.Models.Controls.MobileListViewModel">
+    <Position X="17.25" Y="5" Width="2" />
+    <InheritanceLine Type="EasySendler.Models.Controls.DropDownViewModel" ManuallyRouted="true">
+      <Path>
+        <Point X="14.125" Y="4.546" />
+        <Point X="14.125" Y="4.81" />
+        <Point X="18.25" Y="4.81" />
+        <Point X="18.25" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Controls\MobileListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
