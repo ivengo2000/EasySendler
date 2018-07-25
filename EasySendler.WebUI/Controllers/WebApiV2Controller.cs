@@ -11,6 +11,7 @@ using BuisenessLogicLayer;
 using BuisenessLogicLayer.Abstractions;
 using BuisenessLogicLayer.Models;
 using BuisenessLogicLayer.Services;
+using EasySendler.Extensions;
 using EasySendler.Models.BusinessLogic;
 using EasySendler.Models.Controls;
 using Newtonsoft.Json;
@@ -148,7 +149,7 @@ namespace EasySendler.Controllers
             {
                 EnableSsl = mailSetting.EnableSsl,
                 Name = mailSetting.SMTP,
-                Password = mailSetting.Password,
+                Password = mailSetting.Password.Decrypt(),
                 Port = port,
                 UserName = mailSetting.Email
             };
